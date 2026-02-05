@@ -181,3 +181,85 @@ plt.show()
 
 #graficar con umap 
 
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+from matplotlib.patches import Patch
+
+try:
+    import umap
+except ImportError:
+    print("UMAP no está instalado. Instálalo con: pip install umap-learn")
+    umap = None
+
+# Preparar datos para UMAP (solo columnas numéricas)
+numeric_cols = df_encoded.select_dtypes(include=[np.number]).columns.tolist()
+X = df_encoded[numeric_cols].dropna()
+
+# Normalizar los datos
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+if umap is not None:
+    # UMAP 2D
+    reducer_2d = umap.UMAP(n_components=2, random_state=42, n_neighbors=15, min_dist=0.1)
+    embedding_2d = reducer_2d.fit_transform(X_scaled)
+    
+    # UMAP 3D
+    reducer_3d = umap.UMAP(n_components=3, random_state=42, n_neighbors=15, min_dist=0.1)
+    embedding_3d = reducer_3d.fit_transform(X_scaled)
+    
+    # Visualización UMAP 2D
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    
+    # UMAP 2D coloreado por Supervivencia
+    scatter1 = axes[0].scatter(embedding_2d[:, 0], embedding_2d[:, 1], 
+                               c=X['Survived'], cmap='RdYlGn', alpha=0.6, s=50)
+    axes[0].set_xlabel('UMAP 1')
+    axes[0].set_ylabel('UMAP 2')
+    axes[0].set_title('UMAP 2D - Coloreado por Supervivencia')
+    plt.colorbar(scatter1, ax=axes[0], label='Supervivencia (0/1)')
+    
+    # UMAP 2D coloreado por Clase
+    scatter2 = axes[1].scatter(embedding_2d[:, 0], embedding_2d[:, 1], 
+                               c=X['Pclass'], cmap='viridis', alpha=0.6, s=50)
+    axes[1].set_xlabel('UMAP 1')
+    axes[1].set_ylabel('UMAP 2')
+    axes[1].set_title('UMAP 2D - Coloreado por Clase')
+    plt.colorbar(scatter2, ax=axes[1], label='Clase')
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Visualización UMAP 3D
+    from mpl_toolkits.mplot3d import Axes3D
+    
+    fig = plt.figure(figsize=(16, 6))
+    
+    # UMAP 3D coloreado por Supervivencia
+    ax1 = fig.add_subplot(121, projection='3d')
+    scatter3d_1 = ax1.scatter(embedding_3d[:, 0], embedding_3d[:, 1], embedding_3d[:, 2],
+                              c=X['Survived'], cmap='RdYlGn', alpha=0.6, s=30)
+    ax1.set_xlabel('UMAP 1')
+    ax1.set_ylabel('UMAP 2')
+    ax1.set_zlabel('UMAP 3')
+    ax1.set_title('UMAP 3D - Coloreado por Supervivencia')
+    plt.colorbar(scatter3d_1, ax=ax1, label='Supervivencia (0/1)')
+    
+    # UMAP 3D coloreado por Clase
+    ax2 = fig.add_subplot(122, projection='3d')
+    scatter3d_2 = ax2.scatter(embedding_3d[:, 0], embedding_3d[:, 1], embedding_3d[:, 2],
+                              c=X['Pclass'], cmap='viridis', alpha=0.6, s=30)
+    ax2.set_xlabel('UMAP 1')
+    ax2.set_ylabel('UMAP 2')
+    ax2.set_zlabel('UMAP 3')
+    ax2.set_title('UMAP 3D - Coloreado por Clase')
+    plt.colorbar(scatter3d_2, ax=ax2, label='Clase')
+    
+    plt.tight_layout()
+    plt.show()
+else:
+    print("No se puede visualizar UMAP sin la librería instalada.")
+
+
+
+
