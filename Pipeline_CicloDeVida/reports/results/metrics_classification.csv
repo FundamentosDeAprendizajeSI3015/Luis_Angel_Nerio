@@ -1,0 +1,4 @@
+model,Accuracy,Precision_weighted,Recall_weighted,F1_weighted
+DecisionTreeClassifier,1.0,1.0,1.0,1.0
+RandomForestClassifier,1.0,1.0,1.0,1.0
+LogisticRegression,0.8525,0.8516692417847451,0.8525,0.8513560100832828

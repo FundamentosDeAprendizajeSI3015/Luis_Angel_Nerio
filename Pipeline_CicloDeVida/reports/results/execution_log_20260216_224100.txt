@@ -1,0 +1,126 @@
+ Guardando resultados en: C:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\project\proyecto_habitos_ml\reports\results\execution_log_20260216_224100.txt
+================================================================================
+
+================================================================================
+ANÁLISIS EXPLORATORIO DE DATOS (EDA)
+================================================================================
+
+ Medidas Estadísticas (Media, Mediana, Moda, Desv. Est.):
+
+  Student_ID:
+    • Media: 1000.5000
+    • Mediana: 1000.5000
+    • Moda: 1.0
+    • Desv. Estándar: 577.4946
+
+  Study_Hours_Per_Day:
+    • Media: 7.4758
+    • Mediana: 7.4000
+    • Moda: 6.3
+    • Desv. Estándar: 1.4239
+
+  Extracurricular_Hours_Per_Day:
+    • Media: 1.9901
+    • Mediana: 2.0000
+    • Moda: 1.6
+    • Desv. Estándar: 1.1559
+
+  Sleep_Hours_Per_Day:
+    • Media: 7.5012
+    • Mediana: 7.5000
+    • Moda: 5.4
+    • Desv. Estándar: 1.4609
+
+  Social_Hours_Per_Day:
+    • Media: 2.7046
+    • Mediana: 2.6000
+    • Moda: 0.3
+    • Desv. Estándar: 1.6885
+
+  Physical_Activity_Hours_Per_Day:
+    • Media: 4.3283
+    • Mediana: 4.1000
+    • Moda: 4.3
+    • Desv. Estándar: 2.5141
+
+  GPA:
+    • Media: 3.1160
+    • Mediana: 3.1100
+    • Moda: 3.11
+    • Desv. Estándar: 0.2987
+
+--------------------------------------------------------------------------------
+ Análisis de Outliers (Regla 1.5 × IQR):
+
+  Student_ID:
+    • Cantidad de outliers: 0 (0.00%)
+    • Límite inferior: -998.5000
+    • Límite superior: 2999.5000
+
+  Study_Hours_Per_Day:
+    • Cantidad de outliers: 0 (0.00%)
+    • Límite inferior: 2.7000
+    • Límite superior: 12.3000
+
+  Extracurricular_Hours_Per_Day:
+    • Cantidad de outliers: 0 (0.00%)
+    • Límite inferior: -2.0000
+    • Límite superior: 6.0000
+
+  Sleep_Hours_Per_Day:
+    • Cantidad de outliers: 0 (0.00%)
+    • Límite inferior: 2.3000
+    • Límite superior: 12.7000
+
+  Social_Hours_Per_Day:
+    • Cantidad de outliers: 0 (0.00%)
+    • Límite inferior: -3.1500
+    • Límite superior: 8.4500
+
+  Physical_Activity_Hours_Per_Day:
+    • Cantidad de outliers: 5 (0.25%)
+    • Límite inferior: -3.1500
+    • Límite superior: 11.6500
+    • Impacto en media por eliminar outliers: 0.46%
+    • Impacto en desv. estándar: 1.15%
+
+  GPA:
+    • Cantidad de outliers: 4 (0.20%)
+    • Límite inferior: 2.2550
+    • Límite superior: 3.9750
+    • Impacto en media por eliminar outliers: 0.03%
+    • Impacto en desv. estándar: 0.76%
+C:\Users\luisa\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+C:\Users\luisa\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\umap\umap_.py:1952: UserWarning: n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.
+  warn(
+\ PIPELINE COMPLETO EJECUTADO
+
+--- Mejores modelos ---
+Regresión (GPA): LinearRegression
+Clasificación (Stress): DecisionTreeClassifier
+
+--- Métricas Regresión (top) ---
+                   model       MAE      RMSE        R2
+0       LinearRegression  0.163871  0.205081  0.549519
+2  RandomForestRegressor  0.182724  0.226851  0.448806
+1  DecisionTreeRegressor  0.255200  0.314708 -0.060814
+
+--- Métricas Clasificación (top) ---
+                    model  Accuracy  Precision_weighted  Recall_weighted  F1_weighted
+1  DecisionTreeClassifier    1.0000            1.000000           1.0000     1.000000
+2  RandomForestClassifier    1.0000            1.000000           1.0000     1.000000
+0      LogisticRegression    0.8525            0.851669           0.8525     0.851356
+
+ Archivos generados:
+- reports/results/eda_report.json
+- reports/results/transform_report.json
+- reports/results/stress_mapping.json
+- reports/results/metrics_regression.csv
+- reports/results/metrics_classification.csv
+- reports/figures/ (incluye UMAP y demás)
+- data/processed/ (transformados y dataset_processed.csv)
+- models/ (best_reg_*, best_clf_*, scaler.joblib)
+
+================================================================================
+ Ejecución completada. Log guardado en: C:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\project\proyecto_habitos_ml\reports\results\execution_log_20260216_224100.txt

@@ -1,0 +1,839 @@
+{
+  "numeric_summary": {
+    "Student_ID": {
+      "count": 2000.0,
+      "mean": 1000.5,
+      "std": 577.4945887192364,
+      "min": 1.0,
+      "25%": 500.75,
+      "50%": 1000.5,
+      "75%": 1500.25,
+      "max": 2000.0
+    },
+    "Study_Hours_Per_Day": {
+      "count": 2000.0,
+      "mean": 7.4758000000000004,
+      "std": 1.4238883695867885,
+      "min": 5.0,
+      "25%": 6.3,
+      "50%": 7.4,
+      "75%": 8.7,
+      "max": 10.0
+    },
+    "Extracurricular_Hours_Per_Day": {
+      "count": 2000.0,
+      "mean": 1.9901,
+      "std": 1.1558546578160238,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 3.0,
+      "max": 4.0
+    },
+    "Sleep_Hours_Per_Day": {
+      "count": 2000.0,
+      "mean": 7.50125,
+      "std": 1.4609485353055411,
+      "min": 5.0,
+      "25%": 6.2,
+      "50%": 7.5,
+      "75%": 8.8,
+      "max": 10.0
+    },
+    "Social_Hours_Per_Day": {
+      "count": 2000.0,
+      "mean": 2.7045500000000002,
+      "std": 1.6885140915665198,
+      "min": 0.0,
+      "25%": 1.2,
+      "50%": 2.6,
+      "75%": 4.1,
+      "max": 6.0
+    },
+    "Physical_Activity_Hours_Per_Day": {
+      "count": 2000.0,
+      "mean": 4.328300000000001,
+      "std": 2.5141100780877457,
+      "min": 0.0,
+      "25%": 2.4,
+      "50%": 4.1,
+      "75%": 6.1,
+      "max": 13.0
+    },
+    "GPA": {
+      "count": 2000.0,
+      "mean": 3.11596,
+      "std": 0.29867353639160993,
+      "min": 2.24,
+      "25%": 2.9,
+      "50%": 3.11,
+      "75%": 3.33,
+      "max": 4.0
+    }
+  },
+  "stress_distribution": {
+    "High": 1029,
+    "Moderate": 674,
+    "Low": 297
+  },
+  "gpa_by_stress": {
+    "High": 3.2619727891156463,
+    "Low": 2.8168686868686867,
+    "Moderate": 3.0248367952522255
+  },
+  "statistical_measures": {
+    "Student_ID": {
+      "media": 1000.5,
+      "mediana": 1000.5,
+      "moda": 1.0,
+      "desv_estandar": 577.4945887192364,
+      "minimo": 1.0,
+      "maximo": 2000.0,
+      "varianza": 333500.0
+    },
+    "Study_Hours_Per_Day": {
+      "media": 7.4758000000000004,
+      "mediana": 7.4,
+      "moda": 6.3,
+      "desv_estandar": 1.4238883695867885,
+      "minimo": 5.0,
+      "maximo": 10.0,
+      "varianza": 2.0274580890445226
+    },
+    "Extracurricular_Hours_Per_Day": {
+      "media": 1.9901,
+      "mediana": 2.0,
+      "moda": 1.6,
+      "desv_estandar": 1.1558546578160238,
+      "minimo": 0.0,
+      "maximo": 4.0,
+      "varianza": 1.3359999899949977
+    },
+    "Sleep_Hours_Per_Day": {
+      "media": 7.50125,
+      "mediana": 7.5,
+      "moda": 5.4,
+      "desv_estandar": 1.4609485353055411,
+      "minimo": 5.0,
+      "maximo": 10.0,
+      "varianza": 2.134370622811406
+    },
+    "Social_Hours_Per_Day": {
+      "media": 2.7045500000000002,
+      "mediana": 2.6,
+      "moda": 0.3,
+      "desv_estandar": 1.6885140915665198,
+      "minimo": 0.0,
+      "maximo": 6.0,
+      "varianza": 2.8510798374187094
+    },
+    "Physical_Activity_Hours_Per_Day": {
+      "media": 4.328300000000001,
+      "mediana": 4.1,
+      "moda": 4.3,
+      "desv_estandar": 2.5141100780877457,
+      "minimo": 0.0,
+      "maximo": 13.0,
+      "varianza": 6.320749484742371
+    },
+    "GPA": {
+      "media": 3.11596,
+      "mediana": 3.11,
+      "moda": 3.11,
+      "desv_estandar": 0.29867353639160993,
+      "minimo": 2.24,
+      "maximo": 4.0,
+      "varianza": 0.08920588134067034
+    }
+  },
+  "outlier_analysis": {
+    "Student_ID": {
+      "cantidad_outliers": 0,
+      "porcentaje_outliers": 0.0,
+      "valores_outliers": [],
+      "limite_inferior": -998.5,
+      "limite_superior": 2999.5,
+      "estadisticas_antes": {
+        "media": 1000.5,
+        "mediana": 1000.5,
+        "desv_estandar": 577.4945887192364,
+        "varianza": 333500.0,
+        "minimo": 1.0,
+        "maximo": 2000.0
+      },
+      "estadisticas_despues": {
+        "media": 1000.5,
+        "mediana": 1000.5,
+        "desv_estandar": 577.4945887192364,
+        "varianza": 333500.0,
+        "minimo": 1.0,
+        "maximo": 2000.0
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        }
+      }
+    },
+    "Study_Hours_Per_Day": {
+      "cantidad_outliers": 0,
+      "porcentaje_outliers": 0.0,
+      "valores_outliers": [],
+      "limite_inferior": 2.7000000000000006,
+      "limite_superior": 12.299999999999999,
+      "estadisticas_antes": {
+        "media": 7.4758000000000004,
+        "mediana": 7.4,
+        "desv_estandar": 1.4238883695867885,
+        "varianza": 2.0274580890445226,
+        "minimo": 5.0,
+        "maximo": 10.0
+      },
+      "estadisticas_despues": {
+        "media": 7.4758000000000004,
+        "mediana": 7.4,
+        "desv_estandar": 1.4238883695867885,
+        "varianza": 2.0274580890445226,
+        "minimo": 5.0,
+        "maximo": 10.0
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        }
+      }
+    },
+    "Extracurricular_Hours_Per_Day": {
+      "cantidad_outliers": 0,
+      "porcentaje_outliers": 0.0,
+      "valores_outliers": [],
+      "limite_inferior": -2.0,
+      "limite_superior": 6.0,
+      "estadisticas_antes": {
+        "media": 1.9901,
+        "mediana": 2.0,
+        "desv_estandar": 1.1558546578160238,
+        "varianza": 1.3359999899949977,
+        "minimo": 0.0,
+        "maximo": 4.0
+      },
+      "estadisticas_despues": {
+        "media": 1.9901,
+        "mediana": 2.0,
+        "desv_estandar": 1.1558546578160238,
+        "varianza": 1.3359999899949977,
+        "minimo": 0.0,
+        "maximo": 4.0
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        }
+      }
+    },
+    "Sleep_Hours_Per_Day": {
+      "cantidad_outliers": 0,
+      "porcentaje_outliers": 0.0,
+      "valores_outliers": [],
+      "limite_inferior": 2.2999999999999994,
+      "limite_superior": 12.700000000000001,
+      "estadisticas_antes": {
+        "media": 7.50125,
+        "mediana": 7.5,
+        "desv_estandar": 1.4609485353055411,
+        "varianza": 2.134370622811406,
+        "minimo": 5.0,
+        "maximo": 10.0
+      },
+      "estadisticas_despues": {
+        "media": 7.50125,
+        "mediana": 7.5,
+        "desv_estandar": 1.4609485353055411,
+        "varianza": 2.134370622811406,
+        "minimo": 5.0,
+        "maximo": 10.0
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        }
+      }
+    },
+    "Social_Hours_Per_Day": {
+      "cantidad_outliers": 0,
+      "porcentaje_outliers": 0.0,
+      "valores_outliers": [],
+      "limite_inferior": -3.1499999999999995,
+      "limite_superior": 8.45,
+      "estadisticas_antes": {
+        "media": 2.7045500000000002,
+        "mediana": 2.6,
+        "desv_estandar": 1.6885140915665198,
+        "varianza": 2.8510798374187094,
+        "minimo": 0.0,
+        "maximo": 6.0
+      },
+      "estadisticas_despues": {
+        "media": 2.7045500000000002,
+        "mediana": 2.6,
+        "desv_estandar": 1.6885140915665198,
+        "varianza": 2.8510798374187094,
+        "minimo": 0.0,
+        "maximo": 6.0
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        }
+      }
+    },
+    "Physical_Activity_Hours_Per_Day": {
+      "cantidad_outliers": 5,
+      "porcentaje_outliers": 0.25,
+      "valores_outliers": [
+        13.0,
+        12.4,
+        12.1,
+        12.3,
+        11.7
+      ],
+      "limite_inferior": -3.15,
+      "limite_superior": 11.649999999999999,
+      "estadisticas_antes": {
+        "media": 4.328300000000001,
+        "mediana": 4.1,
+        "desv_estandar": 2.5141100780877457,
+        "varianza": 6.320749484742371,
+        "minimo": 0.0,
+        "maximo": 13.0
+      },
+      "estadisticas_despues": {
+        "media": 4.308320802005013,
+        "mediana": 4.1,
+        "desv_estandar": 2.4852364349809113,
+        "varianza": 6.176400137756629,
+        "minimo": 0.0,
+        "maximo": 11.6
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.019979197994988596,
+          "cambio_porcentaje": 0.46159457512160873
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.02887364310683438,
+          "cambio_porcentaje": 1.1484637589455082
+        },
+        "varianza": {
+          "cambio_absoluto": 0.14434934698574153,
+          "cambio_porcentaje": 2.2837378278349076
+        },
+        "minimo": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "maximo": {
+          "cambio_absoluto": 1.4000000000000004,
+          "cambio_porcentaje": 10.769230769230772
+        }
+      }
+    },
+    "GPA": {
+      "cantidad_outliers": 4,
+      "porcentaje_outliers": 0.2,
+      "valores_outliers": [
+        4.0,
+        2.25,
+        2.24,
+        2.25
+      ],
+      "limite_inferior": 2.255,
+      "limite_superior": 3.9750000000000005,
+      "estadisticas_antes": {
+        "media": 3.11596,
+        "mediana": 3.11,
+        "desv_estandar": 0.29867353639160993,
+        "varianza": 0.08920588134067034,
+        "minimo": 2.24,
+        "maximo": 4.0
+      },
+      "estadisticas_despues": {
+        "media": 3.1168236472945887,
+        "mediana": 3.11,
+        "desv_estandar": 0.29640490994334107,
+        "varianza": 0.08785587063852014,
+        "minimo": 2.28,
+        "maximo": 3.93
+      },
+      "impacto_remocion": {
+        "media": {
+          "cambio_absoluto": 0.0008636472945888762,
+          "cambio_porcentaje": 0.02771689285449352
+        },
+        "mediana": {
+          "cambio_absoluto": 0.0,
+          "cambio_porcentaje": 0.0
+        },
+        "desv_estandar": {
+          "cambio_absoluto": 0.0022686264482688623,
+          "cambio_porcentaje": 0.7595672772609896
+        },
+        "varianza": {
+          "cambio_absoluto": 0.0013500107021501978,
+          "cambio_porcentaje": 1.5133651300351059
+        },
+        "minimo": {
+          "cambio_absoluto": 0.03999999999999959,
+          "cambio_porcentaje": 1.7857142857142672
+        },
+        "maximo": {
+          "cambio_absoluto": 0.06999999999999984,
+          "cambio_porcentaje": 1.749999999999996
+        }
+      }
+    }
+  },
+  "percentiles_deciles": {
+    "Student_ID": {
+      "percentiles": {
+        "P10": 200.9,
+        "P25": 500.75,
+        "P50": 1000.5,
+        "P75": 1500.25,
+        "P90": 1800.1000000000001
+      },
+      "deciles": {
+        "D1": 200.9,
+        "D2": 400.8,
+        "D3": 600.6999999999999,
+        "D4": 800.6,
+        "D5": 1000.5,
+        "D6": 1200.3999999999999,
+        "D7": 1400.3,
+        "D8": 1600.2,
+        "D9": 1800.1000000000001
+      },
+      "quintiles": {
+        "Q1": 400.8,
+        "Q2": 800.6,
+        "Q3": 1200.3999999999999,
+        "Q4": 1600.2
+      }
+    },
+    "Study_Hours_Per_Day": {
+      "percentiles": {
+        "P10": 5.5,
+        "P25": 6.3,
+        "P50": 7.4,
+        "P75": 8.7,
+        "P90": 9.5
+      },
+      "deciles": {
+        "D1": 5.5,
+        "D2": 6.0,
+        "D3": 6.5,
+        "D4": 7.0,
+        "D5": 7.4,
+        "D6": 8.0,
+        "D7": 8.5,
+        "D8": 8.920000000000005,
+        "D9": 9.5
+      },
+      "quintiles": {
+        "Q1": 6.0,
+        "Q2": 7.0,
+        "Q3": 8.0,
+        "Q4": 8.920000000000005
+      }
+    },
+    "Extracurricular_Hours_Per_Day": {
+      "percentiles": {
+        "P10": 0.4,
+        "P25": 1.0,
+        "P50": 2.0,
+        "P75": 3.0,
+        "P90": 3.6
+      },
+      "deciles": {
+        "D1": 0.4,
+        "D2": 0.8,
+        "D3": 1.2,
+        "D4": 1.6,
+        "D5": 2.0,
+        "D6": 2.4,
+        "D7": 2.8,
+        "D8": 3.2,
+        "D9": 3.6
+      },
+      "quintiles": {
+        "Q1": 0.8,
+        "Q2": 1.6,
+        "Q3": 2.4,
+        "Q4": 3.2
+      }
+    },
+    "Sleep_Hours_Per_Day": {
+      "percentiles": {
+        "P10": 5.5,
+        "P25": 6.2,
+        "P50": 7.5,
+        "P75": 8.8,
+        "P90": 9.5
+      },
+      "deciles": {
+        "D1": 5.5,
+        "D2": 5.9,
+        "D3": 6.5,
+        "D4": 7.0,
+        "D5": 7.5,
+        "D6": 8.0,
+        "D7": 8.5,
+        "D8": 9.0,
+        "D9": 9.5
+      },
+      "quintiles": {
+        "Q1": 5.9,
+        "Q2": 7.0,
+        "Q3": 8.0,
+        "Q4": 9.0
+      }
+    },
+    "Social_Hours_Per_Day": {
+      "percentiles": {
+        "P10": 0.5,
+        "P25": 1.2,
+        "P50": 2.6,
+        "P75": 4.1,
+        "P90": 5.1
+      },
+      "deciles": {
+        "D1": 0.5,
+        "D2": 1.0,
+        "D3": 1.5,
+        "D4": 2.0,
+        "D5": 2.6,
+        "D6": 3.2,
+        "D7": 3.8,
+        "D8": 4.4,
+        "D9": 5.1
+      },
+      "quintiles": {
+        "Q1": 1.0,
+        "Q2": 2.0,
+        "Q3": 3.2,
+        "Q4": 4.4
+      }
+    },
+    "Physical_Activity_Hours_Per_Day": {
+      "percentiles": {
+        "P10": 1.1,
+        "P25": 2.4,
+        "P50": 4.1,
+        "P75": 6.1,
+        "P90": 7.8
+      },
+      "deciles": {
+        "D1": 1.1,
+        "D2": 2.0,
+        "D3": 2.7,
+        "D4": 3.5,
+        "D5": 4.1,
+        "D6": 4.8,
+        "D7": 5.7,
+        "D8": 6.6,
+        "D9": 7.8
+      },
+      "quintiles": {
+        "Q1": 2.0,
+        "Q2": 3.5,
+        "Q3": 4.8,
+        "Q4": 6.6
+      }
+    },
+    "GPA": {
+      "percentiles": {
+        "P10": 2.7390000000000003,
+        "P25": 2.9,
+        "P50": 3.11,
+        "P75": 3.33,
+        "P90": 3.51
+      },
+      "deciles": {
+        "D1": 2.7390000000000003,
+        "D2": 2.85,
+        "D3": 2.94,
+        "D4": 3.03,
+        "D5": 3.11,
+        "D6": 3.2,
+        "D7": 3.28,
+        "D8": 3.38,
+        "D9": 3.51
+      },
+      "quintiles": {
+        "Q1": 2.85,
+        "Q2": 3.03,
+        "Q3": 3.2,
+        "Q4": 3.38
+      }
+    }
+  },
+  "correlation_analysis": {
+    "pearson": {
+      "Student_ID": {
+        "Student_ID": 1.0,
+        "Study_Hours_Per_Day": 0.014,
+        "Extracurricular_Hours_Per_Day": -0.0184,
+        "Sleep_Hours_Per_Day": -0.0014,
+        "Social_Hours_Per_Day": -0.0044,
+        "Physical_Activity_Hours_Per_Day": 0.0043,
+        "GPA": 0.0054
+      },
+      "Study_Hours_Per_Day": {
+        "Student_ID": 0.014,
+        "Study_Hours_Per_Day": 1.0,
+        "Extracurricular_Hours_Per_Day": -0.0026,
+        "Sleep_Hours_Per_Day": 0.0267,
+        "Social_Hours_Per_Day": -0.1378,
+        "Physical_Activity_Hours_Per_Day": -0.4881,
+        "GPA": 0.7345
+      },
+      "Extracurricular_Hours_Per_Day": {
+        "Student_ID": -0.0184,
+        "Study_Hours_Per_Day": -0.0026,
+        "Extracurricular_Hours_Per_Day": 1.0,
+        "Sleep_Hours_Per_Day": 0.0088,
+        "Social_Hours_Per_Day": -0.1391,
+        "Physical_Activity_Hours_Per_Day": -0.37,
+        "GPA": -0.0322
+      },
+      "Sleep_Hours_Per_Day": {
+        "Student_ID": -0.0014,
+        "Study_Hours_Per_Day": 0.0267,
+        "Extracurricular_Hours_Per_Day": 0.0088,
+        "Sleep_Hours_Per_Day": 1.0,
+        "Social_Hours_Per_Day": -0.1936,
+        "Physical_Activity_Hours_Per_Day": -0.4703,
+        "GPA": -0.0043
+      },
+      "Social_Hours_Per_Day": {
+        "Student_ID": -0.0044,
+        "Study_Hours_Per_Day": -0.1378,
+        "Extracurricular_Hours_Per_Day": -0.1391,
+        "Sleep_Hours_Per_Day": -0.1936,
+        "Social_Hours_Per_Day": 1.0,
+        "Physical_Activity_Hours_Per_Day": -0.4171,
+        "GPA": -0.0857
+      },
+      "Physical_Activity_Hours_Per_Day": {
+        "Student_ID": 0.0043,
+        "Study_Hours_Per_Day": -0.4881,
+        "Extracurricular_Hours_Per_Day": -0.37,
+        "Sleep_Hours_Per_Day": -0.4703,
+        "Social_Hours_Per_Day": -0.4171,
+        "Physical_Activity_Hours_Per_Day": 1.0,
+        "GPA": -0.3412
+      },
+      "GPA": {
+        "Student_ID": 0.0054,
+        "Study_Hours_Per_Day": 0.7345,
+        "Extracurricular_Hours_Per_Day": -0.0322,
+        "Sleep_Hours_Per_Day": -0.0043,
+        "Social_Hours_Per_Day": -0.0857,
+        "Physical_Activity_Hours_Per_Day": -0.3412,
+        "GPA": 1.0
+      }
+    },
+    "spearman": {
+      "Student_ID": {
+        "Student_ID": 1.0,
+        "Study_Hours_Per_Day": 0.0153,
+        "Extracurricular_Hours_Per_Day": -0.0189,
+        "Sleep_Hours_Per_Day": -0.002,
+        "Social_Hours_Per_Day": -0.0035,
+        "Physical_Activity_Hours_Per_Day": 0.0098,
+        "GPA": -0.0037
+      },
+      "Study_Hours_Per_Day": {
+        "Student_ID": 0.0153,
+        "Study_Hours_Per_Day": 1.0,
+        "Extracurricular_Hours_Per_Day": -0.0021,
+        "Sleep_Hours_Per_Day": 0.0256,
+        "Social_Hours_Per_Day": -0.136,
+        "Physical_Activity_Hours_Per_Day": -0.4832,
+        "GPA": 0.7429
+      },
+      "Extracurricular_Hours_Per_Day": {
+        "Student_ID": -0.0189,
+        "Study_Hours_Per_Day": -0.0021,
+        "Extracurricular_Hours_Per_Day": 1.0,
+        "Sleep_Hours_Per_Day": 0.0084,
+        "Social_Hours_Per_Day": -0.1387,
+        "Physical_Activity_Hours_Per_Day": -0.3654,
+        "GPA": -0.0319
+      },
+      "Sleep_Hours_Per_Day": {
+        "Student_ID": -0.002,
+        "Study_Hours_Per_Day": 0.0256,
+        "Extracurricular_Hours_Per_Day": 0.0084,
+        "Sleep_Hours_Per_Day": 1.0,
+        "Social_Hours_Per_Day": -0.1913,
+        "Physical_Activity_Hours_Per_Day": -0.4642,
+        "GPA": -0.0062
+      },
+      "Social_Hours_Per_Day": {
+        "Student_ID": -0.0035,
+        "Study_Hours_Per_Day": -0.136,
+        "Extracurricular_Hours_Per_Day": -0.1387,
+        "Sleep_Hours_Per_Day": -0.1913,
+        "Social_Hours_Per_Day": 1.0,
+        "Physical_Activity_Hours_Per_Day": -0.4061,
+        "GPA": -0.0941
+      },
+      "Physical_Activity_Hours_Per_Day": {
+        "Student_ID": 0.0098,
+        "Study_Hours_Per_Day": -0.4832,
+        "Extracurricular_Hours_Per_Day": -0.3654,
+        "Sleep_Hours_Per_Day": -0.4642,
+        "Social_Hours_Per_Day": -0.4061,
+        "Physical_Activity_Hours_Per_Day": 1.0,
+        "GPA": -0.334
+      },
+      "GPA": {
+        "Student_ID": -0.0037,
+        "Study_Hours_Per_Day": 0.7429,
+        "Extracurricular_Hours_Per_Day": -0.0319,
+        "Sleep_Hours_Per_Day": -0.0062,
+        "Social_Hours_Per_Day": -0.0941,
+        "Physical_Activity_Hours_Per_Day": -0.334,
+        "GPA": 1.0
+      }
+    },
+    "high_corr_pairs": [
+      {
+        "col_1": "Study_Hours_Per_Day",
+        "col_2": "GPA",
+        "corr": 0.7344679806560517,
+        "method": "pearson"
+      }
+    ],
+    "specific_pairs": {}
+  },
+  "skewness_analysis": {
+    "Student_ID": 0.0,
+    "Study_Hours_Per_Day": 0.03498784186936124,
+    "Extracurricular_Hours_Per_Day": 0.0012629369659481705,
+    "Sleep_Hours_Per_Day": -0.0070959299103526855,
+    "Social_Hours_Per_Day": 0.18422209662333497,
+    "Physical_Activity_Hours_Per_Day": 0.39923921729901546,
+    "GPA": 0.02751585572653759
+  }
+}

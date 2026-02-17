@@ -1,0 +1,20 @@
+{
+  "categorical_columns": [
+    "Stress_Level"
+  ],
+  "engineered_features": [],
+  "label_mappings": {
+    "Stress_Level": {
+      "High": 0,
+      "Low": 1,
+      "Moderate": 2
+    }
+  },
+  "log_skew_report": {},
+  "output_paths": {
+    "base": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado.csv",
+    "onehot": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_onehot.csv",
+    "label": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_label.csv",
+    "binary": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_binary.csv"
+  }
+}
