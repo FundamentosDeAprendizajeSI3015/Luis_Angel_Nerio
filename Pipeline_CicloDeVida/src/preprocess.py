@@ -1,15 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple
 
-import numpy as np
 import pandas as pd
 
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 from .config import (
-    DATA_DIR, RANDOM_STATE,
+    DATA_DIR,
     COL_GPA, COL_STRESS, COL_ID, COL_HOURS
 )
 
@@ -118,21 +116,3 @@ def preprocess(df: pd.DataFrame) -> PreprocessOutput:
         stress_mapping=mapping,
         scaler=scaler,
     )
-
-
-def split_for_regression(out: PreprocessOutput, test_size: float = 0.2):
-    X_train, X_test, y_train, y_test = train_test_split(
-        out.X, out.y_gpa, test_size=test_size, random_state=RANDOM_STATE
-    )
-    return X_train, X_test, y_train, y_test
-
-
-def split_for_classification(out: PreprocessOutput, test_size: float = 0.2):
-    # Stratify para mantener proporciones de clases
-    X_train, X_test, y_train, y_test = train_test_split(
-        out.X, out.y_stress,
-        test_size=test_size,
-        random_state=RANDOM_STATE,
-        stratify=out.y_stress
-    )
-    return X_train, X_test, y_train, y_test

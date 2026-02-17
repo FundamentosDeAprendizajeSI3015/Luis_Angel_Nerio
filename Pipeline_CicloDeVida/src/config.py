@@ -7,7 +7,6 @@ RAW_DIR = DATA_DIR / "raw"
 REPORTS_DIR = BASE_DIR / "reports"
 RESULTS_DIR = REPORTS_DIR / "results"
 FIGURES_DIR = REPORTS_DIR / "figures"
-MODELS_DIR = BASE_DIR / "models"
 
 # Reproducibilidad
 RANDOM_STATE = 42

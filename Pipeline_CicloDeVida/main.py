@@ -1,18 +1,11 @@
 import json
-import joblib
 
 from src.ingest import ingest_and_profile
 from src.eda import run_basic_eda
 from src.visualize import run_all_visuals, save_log_transform_comparison
-from src.preprocess import preprocess, split_for_regression, split_for_classification
+from src.preprocess import preprocess
 from src.transform import apply_transformations
-from src.train_regression import train_regression_models, predict_regression_models
-from src.train_classif import train_classification_models, predict_classification_models
-from src.evaluate import (
-    evaluate_regression, evaluate_classification,
-    save_regression_pred_plot, save_confusion_matrix_plot
-)
-from src.config import RESULTS_DIR, MODELS_DIR
+from src.config import RESULTS_DIR
 from src.utils import setup_results_output
 
 
@@ -84,64 +77,15 @@ def main():
     with open(RESULTS_DIR / "stress_mapping.json", "w", encoding="utf-8") as f:
         json.dump(prep.stress_mapping, f, ensure_ascii=False, indent=2)
 
-    # 6) Split
-    Xtr_r, Xte_r, ytr_r, yte_r = split_for_regression(prep, test_size=0.2)
-    Xtr_c, Xte_c, ytr_c, yte_c = split_for_classification(prep, test_size=0.2)
-
-    # 7) Entrenamiento regresión (GPA)
-    reg_models = train_regression_models(Xtr_r, ytr_r)
-    reg_preds = predict_regression_models(reg_models, Xte_r)
-    reg_metrics = evaluate_regression(yte_r.values, reg_preds)
-
-    # Guardar resultados regresión
-    reg_metrics.to_csv(RESULTS_DIR / "metrics_regression.csv", index=False, encoding="utf-8")
-
-    # Guardar plot y_true vs y_pred del mejor modelo (MAE más bajo)
-    best_reg_name = reg_metrics.iloc[0]["model"]
-    save_regression_pred_plot(yte_r.values, reg_preds[best_reg_name], best_reg_name)
-
-    # 8) Entrenamiento clasificación (Estrés)
-    clf_models = train_classification_models(Xtr_c, ytr_c)
-    clf_preds = predict_classification_models(clf_models, Xte_c)
-    clf_metrics = evaluate_classification(yte_c.values, clf_preds, average="weighted")
-
-    # Guardar resultados clasificación
-    clf_metrics.to_csv(RESULTS_DIR / "metrics_classification.csv", index=False, encoding="utf-8")
-
-    # Guardar matriz de confusión del mejor modelo (F1 weighted más alto)
-    best_clf_name = clf_metrics.iloc[0]["model"]
-    # labels ordenadas por el mapping (0,1,2...)
-    inv_map = {v: k for k, v in prep.stress_mapping.items()}
-    class_labels = [inv_map[i] for i in sorted(inv_map.keys())]
-    save_confusion_matrix_plot(yte_c.values, clf_preds[best_clf_name], best_clf_name, class_labels)
-
-    # 9) Guardar modelos (mejores)
-    MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    joblib.dump(reg_models[best_reg_name], MODELS_DIR / f"best_reg_{best_reg_name}.joblib")
-    joblib.dump(clf_models[best_clf_name], MODELS_DIR / f"best_clf_{best_clf_name}.joblib")
-    joblib.dump(prep.scaler, MODELS_DIR / "scaler.joblib")
-
-    # 10) Prints finales
-    print("\ PIPELINE COMPLETO EJECUTADO")
-    print("\n--- Mejores modelos ---")
-    print("Regresión (GPA):", best_reg_name)
-    print("Clasificación (Stress):", best_clf_name)
-
-    print("\n--- Métricas Regresión (top) ---")
-    print(reg_metrics.head())
-
-    print("\n--- Métricas Clasificación (top) ---")
-    print(clf_metrics.head())
-
+    # Proceso completado
+    print("\n" + "=" * 80)
+    print(" ANÁLISIS COMPLETADO")
     print("\n Archivos generados:")
     print("- reports/results/eda_report.json")
     print("- reports/results/transform_report.json")
     print("- reports/results/stress_mapping.json")
-    print("- reports/results/metrics_regression.csv")
-    print("- reports/results/metrics_classification.csv")
-    print("- reports/figures/ (incluye UMAP y demás)")
-    print("- data/processed/ (transformados y dataset_processed.csv)")
-    print("- models/ (best_reg_*, best_clf_*, scaler.joblib)")
+    print("- reports/figures/ (incluye visualizaciones)")
+    print("- data/processed/ (datasets transformados)")
     
     print("\n" + "=" * 80)
     print(f" Ejecución completada. Log guardado en: {log_file}")

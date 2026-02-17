@@ -1,5 +1,5 @@
 metric,value
-file_path,C:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\project\proyecto_habitos_ml\data\raw\student_lifestyle_dataset.csv
+file_path,C:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Pipeline_CicloDeVida\data\raw\student_lifestyle_dataset.csv
 n_rows,2000
 n_cols,8
 missing_total,0

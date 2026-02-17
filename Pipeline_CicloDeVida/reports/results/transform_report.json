@@ -12,9 +12,9 @@
   },
   "log_skew_report": {},
   "output_paths": {
-    "base": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado.csv",
-    "onehot": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_onehot.csv",
-    "label": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_label.csv",
-    "binary": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\project\\proyecto_habitos_ml\\data\\processed\\student_lifestyle_dataset_transformado_binary.csv"
+    "base": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Pipeline_CicloDeVida\\data\\processed\\student_lifestyle_dataset_transformado.csv",
+    "onehot": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Pipeline_CicloDeVida\\data\\processed\\student_lifestyle_dataset_transformado_onehot.csv",
+    "label": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Pipeline_CicloDeVida\\data\\processed\\student_lifestyle_dataset_transformado_label.csv",
+    "binary": "C:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Pipeline_CicloDeVida\\data\\processed\\student_lifestyle_dataset_transformado_binary.csv"
   }
 }
