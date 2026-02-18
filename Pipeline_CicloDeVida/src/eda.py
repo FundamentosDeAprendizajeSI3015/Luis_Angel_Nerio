@@ -8,6 +8,11 @@ from .config import COL_GPA, COL_STRESS, COL_HOURS, CORR_THRESHOLD, SPECIFIC_COR
 
 @dataclass
 class EDAReport:
+    """Contenedor completo del Análisis Exploratorio de Datos.
+    
+    Almacena resúmenes numéricos, distribuciones, análisis de outliers,
+    correlaciones, percentiles y asimetrías.
+    """
     numeric_summary: Dict[str, Any]
     stress_distribution: Dict[str, int]
     gpa_by_stress: Dict[str, float]
@@ -171,6 +176,18 @@ def _detect_and_analyze_outliers(df: pd.DataFrame, numeric_cols: List[str]) -> D
 
 
 def _calculate_correlations(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[str, Any]:
+    """Calcula matrices de correlación (Pearson y Spearman) e identifica pares altamente correlacionados.
+    
+    Busca pares de features con |correlación| >= CORR_THRESHOLD (0.7 por defecto).
+    También calcula correlaciones específicas definidas en config.
+    
+    Args:
+        df: DataFrame a analizar.
+        numeric_cols: Lista de columnas numéricas.
+    
+    Returns:
+        Diccionario con matrices de correlación y pares altamente correlacionados.
+    """
     if len(numeric_cols) < 2:
         return {
             "pearson": {},
@@ -182,6 +199,7 @@ def _calculate_correlations(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[s
     corr_pearson = df[numeric_cols].corr(method="pearson", numeric_only=True)
     corr_spearman = df[numeric_cols].corr(method="spearman", numeric_only=True)
 
+    # Identificar pares con alta correlación
     high_pairs = []
     for i, col_i in enumerate(numeric_cols):
         for j in range(i + 1, len(numeric_cols)):
@@ -195,6 +213,7 @@ def _calculate_correlations(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[s
                     "method": "pearson",
                 })
 
+    # Calcular pares específicos de interés
     specific_pairs = {}
     for col_1, col_2 in SPECIFIC_CORR_PAIRS:
         if col_1 in df.columns and col_2 in df.columns:
@@ -215,6 +234,19 @@ def _calculate_correlations(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[s
 
 
 def _calculate_skewness(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[str, Any]:
+    """Calcula el sesgo (skewness) de cada variable numérica.
+    
+    Valores cercanos a 0: distribución simétrica
+    Positivos: cola a la derecha
+    Negativos: cola a la izquierda
+    
+    Args:
+        df: DataFrame a analizar.
+        numeric_cols: Lista de columnas numéricas.
+    
+    Returns:
+        Diccionario con valores de asimetrìa por columna.
+    """
     skewness = {}
     for col in numeric_cols:
         data = df[col].dropna()
@@ -225,10 +257,29 @@ def _calculate_skewness(df: pd.DataFrame, numeric_cols: List[str]) -> Dict[str, 
 
 
 def run_basic_eda(df: pd.DataFrame) -> EDAReport:
+    """Función principal: ejecuta análisis exploratorio completo del dataset.
+    
+    Realiza:
+    1. Resumen numérico básico (describe)
+    2. Distribución de Stress Level
+    3. GPA promedio por Stress Level
+    4. Medidas estadísticas (media, mediana, moda, desv. est.)
+    5. Cuartiles e IQR para detección de outliers
+    6. Percentiles y deciles
+    7. Análisis detallado de outliers (cantidad, % afectado, impacto de remoción)
+    8. Matrices de correlación (Pearson y Spearman)
+    9. Asimetrías (skewness)
+    
+    Args:
+        df: DataFrame a analizar.
+    
+    Returns:
+        EDAReport con todos los análisis realizados.
+    """
     # Obtener columnas numéricas
     numeric_cols = _get_numeric_columns(df)
     
-    # Resumen numérico básico
+    # Resumen numérico básico (describe)
     numeric_summary = {}
     if numeric_cols:
         desc = df[numeric_cols].describe().T
@@ -240,7 +291,7 @@ def run_basic_eda(df: pd.DataFrame) -> EDAReport:
     else:
         stress_distribution = {}
 
-    # GPA por estrés (promedio)
+    # GPA promedio por nivel de estrés
     gpa_by_stress = {}
     if COL_GPA in df.columns and COL_STRESS in df.columns:
         gpa_by_stress = (
@@ -250,7 +301,7 @@ def run_basic_eda(df: pd.DataFrame) -> EDAReport:
             .to_dict()
         )
 
-    # Calcular medidas estadísticas avanzadas
+    # Calcular todas las análisis avanzadas
     statistical_measures = _calculate_statistical_measures(df, numeric_cols)
     quartiles_iqr = _calculate_quartiles_iqr(df, numeric_cols)
     percentiles_deciles = _calculate_percentiles_deciles(df, numeric_cols)

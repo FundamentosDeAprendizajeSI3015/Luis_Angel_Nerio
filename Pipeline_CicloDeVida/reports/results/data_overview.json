@@ -109,10 +109,10 @@
   "range_issues": {
     "gpa_out_of_range_count": 0,
     "hours_out_of_range_by_col": {
-      "Sleep_Hours_Per_Day": 0,
       "Physical_Activity_Hours_Per_Day": 0,
-      "Study_Hours_Per_Day": 0,
+      "Sleep_Hours_Per_Day": 0,
       "Social_Hours_Per_Day": 0,
+      "Study_Hours_Per_Day": 0,
       "Extracurricular_Hours_Per_Day": 0
     },
     "stress_unique_values": [

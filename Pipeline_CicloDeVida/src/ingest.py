@@ -14,6 +14,10 @@ from .config import (
 
 @dataclass
 class DataOverview:
+    """Contenedor de información de perfil del dataset cargado.
+    
+    Almacena resumen estadístico, tipos de datos, nulos, duplicados y validaciones de rango.
+    """
     file_path: str
     n_rows: int
     n_cols: int
@@ -27,10 +31,22 @@ class DataOverview:
 
 
 def ensure_dirs() -> None:
+    """Crea directorio de resultados si no existe."""
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def find_first_csv(raw_dir: Path = RAW_DIR) -> Path:
+    """Busca y retorna el primer archivo CSV en la carpeta raw.
+    
+    Args:
+        raw_dir: Ruta al directorio con datos crudos.
+    
+    Returns:
+        Path al archivo CSV encontrado.
+    
+    Raises:
+        FileNotFoundError: Si no existe la carpeta o no hay archivos CSV.
+    """
     if not raw_dir.exists():
         raise FileNotFoundError(f"No existe la carpeta: {raw_dir}")
     csv_files = sorted(raw_dir.glob("*.csv"))
@@ -49,11 +65,22 @@ def load_dataset(csv_path: Path) -> pd.DataFrame:
 
 
 def _numeric_basic_stats(df: pd.DataFrame) -> Dict[str, Dict[str, float]]:
+    """Calcula estadísticas básicas descriptivas de columnas numéricas.
+    
+    Retorna count, mean, std, min, percentiles (25%, 50%, 75%) y max.
+    
+    Args:
+        df: DataFrame a analizar.
+    
+    Returns:
+        Diccionario con estadísticas por columna numérica.
+    """
     num = df.select_dtypes(include=["number"])
     if num.shape[1] == 0:
         return {}
-    desc = num.describe().T  # count, mean, std, min, 25%, 50%, 75%, max
-    # Convertir a dict simple
+    # Calcular describe (count, mean, std, min, 25%, 50%, 75%, max)
+    desc = num.describe().T
+    # Convertir a diccionario simple para serialización JSON
     out: Dict[str, Dict[str, float]] = {}
     for col in desc.index:
         out[col] = {k: float(desc.loc[col, k]) for k in desc.columns}
@@ -61,9 +88,23 @@ def _numeric_basic_stats(df: pd.DataFrame) -> Dict[str, Dict[str, float]]:
 
 
 def _check_ranges(df: pd.DataFrame) -> Dict[str, Any]:
+    """Valida que los valores estén dentro de rangos esperados.
+    
+    Verifica:
+    - GPA dentro de [0.0, 4.0]
+    - Horas dentro de [0, 24]
+    - Valores únicos de Stress Level
+    - Cantidad de IDs únicos
+    
+    Args:
+        df: DataFrame a validar.
+    
+    Returns:
+        Diccionario con resultados de validaciones y anomalías encontradas.
+    """
     issues: Dict[str, Any] = {}
 
-    # Chequeo GPA
+    # Chequeo GPA: validar rango [0.0, 4.0]
     if COL_GPA in df.columns:
         gpa = pd.to_numeric(df[COL_GPA], errors="coerce")
         bad = df[(gpa < RANGE_GPA_MIN) | (gpa > RANGE_GPA_MAX)]
@@ -72,7 +113,7 @@ def _check_ranges(df: pd.DataFrame) -> Dict[str, Any]:
         issues["gpa_out_of_range_count"] = None
         issues["gpa_note"] = f"No encontré columna '{COL_GPA}'"
 
-    # Chequeo horas
+    # Chequeo horas: validar rango [0, 24] para cada tipo de hora
     hours_issues = {}
     for c in COL_HOURS:
         if c in df.columns:
@@ -83,13 +124,13 @@ def _check_ranges(df: pd.DataFrame) -> Dict[str, Any]:
             hours_issues[c] = None
     issues["hours_out_of_range_by_col"] = hours_issues
 
-    # Chequeo Stress
+    # Chequeo Stress: listar valores únicos
     if COL_STRESS in df.columns:
         issues["stress_unique_values"] = sorted(df[COL_STRESS].dropna().astype(str).unique().tolist())
     else:
         issues["stress_unique_values"] = None
 
-    # Chequeo ID
+    # Chequeo ID: contar IDs únicos
     if COL_ID in df.columns:
         issues["id_unique_count"] = int(df[COL_ID].nunique(dropna=True))
     else:
@@ -99,6 +140,23 @@ def _check_ranges(df: pd.DataFrame) -> Dict[str, Any]:
 
 
 def build_overview(df: pd.DataFrame, csv_path: Path) -> DataOverview:
+    """Construye un perfil completo del dataset: dimensiones, tipos, nulos y validaciones.
+    
+    Agrupa información de:
+    - Dimensiones y nombre de columnas
+    - Tipos de datos
+    - Conteo de nulos por columna
+    - Duplicados
+    - Estadísticas descriptivas numéricas
+    - Validaciones de rango
+    
+    Args:
+        df: DataFrame a perfilar.
+        csv_path: Ruta del archivo CSV cargado.
+    
+    Returns:
+        DataOverview con información completa del dataset.
+    """
     missing_by_col = df.isna().sum().to_dict()
     overview = DataOverview(
         file_path=str(csv_path),
@@ -116,15 +174,27 @@ def build_overview(df: pd.DataFrame, csv_path: Path) -> DataOverview:
 
 
 def save_overview(overview: DataOverview) -> Tuple[Path, Path]:
+    """Guarda el perfil del dataset en JSON y CSV.
+    
+    Genera dos archivos:
+    - JSON: Perfil completo con todos los detalles
+    - CSV: Resumen ejecutivo rápido
+    
+    Args:
+        overview: DataOverview a guardar.
+    
+    Returns:
+        Tupla con rutas a (json_path, csv_path).
+    """
     ensure_dirs()
     json_path = RESULTS_DIR / "data_overview.json"
     csv_path = RESULTS_DIR / "data_overview.csv"
 
-    # JSON
+    # Guardar perfil completo en JSON
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(overview.__dict__, f, ensure_ascii=False, indent=2)
 
-    # CSV plano (resumen rápido)
+    # Guardar resumen ejecutivo en CSV (métricas clave solamente)
     rows = [
         ("file_path", overview.file_path),
         ("n_rows", overview.n_rows),
@@ -138,11 +208,31 @@ def save_overview(overview: DataOverview) -> Tuple[Path, Path]:
 
 
 def ingest_and_profile(csv_path: Optional[Path] = None) -> Dict[str, Any]:
+    """Función principal: carga dataset, lo perfila y guarda resumen.
+    
+    Orquesta la ingesta de datos:
+    1. Encuentra o recibe path a CSV
+    2. Carga el dataset (intenta , en separadores si es necesario)
+    3. Construye perfil completo (estadísticas, validaciones)
+    4. Guarda resumen en JSON y CSV
+    
+    Args:
+        csv_path: Ruta opcional al CSV. Si es None, busca primer CSV en raw_dir.
+    
+    Returns:
+        Diccionario con dataframe, overview y rutas de archivos generados.
+    """
+    # Si no proporcionan path, buscar primer CSV disponible
     if csv_path is None:
         csv_path = find_first_csv()
 
+    # Cargar dataset desde CSV
     df = load_dataset(csv_path)
+    
+    # Construir perfil completo
     overview = build_overview(df, csv_path)
+    
+    # Guardar resumen en archivos
     json_path, csv_summary_path = save_overview(overview)
 
     return {

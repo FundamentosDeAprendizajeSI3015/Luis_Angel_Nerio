@@ -13,6 +13,11 @@ PROCESSED_DIR = DATA_DIR / "processed"
 
 @dataclass
 class TransformOutput:
+    """Contenedor de outputs de transformaciones de features.
+    
+    Almacena múltiples versiones del dataset (base, onehot, label, binary)
+    y metadatos sobre transformaciones aplicadas.
+    """
     base_df: pd.DataFrame
     onehot_df: pd.DataFrame
     label_df: pd.DataFrame
@@ -26,14 +31,31 @@ class TransformOutput:
 
 
 def ensure_processed_dir() -> None:
+    """Crea directorio processed si no existe."""
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _numeric_columns(df: pd.DataFrame) -> List[str]:
+    """Retorna lista de nombres de columnas con tipo numérico.
+    
+    Args:
+        df: DataFrame a inspeccionar.
+    
+    Returns:
+        Lista de nombres de columnas numéricas.
+    """
     return [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
 
 
 def _categorical_columns(df: pd.DataFrame) -> List[str]:
+    """Retorna lista de nombres de columnas categóricas (objeto, bool, categoría).
+    
+    Args:
+        df: DataFrame a inspeccionar.
+    
+    Returns:
+        Lista de nombres de columnas categóricas.
+    """
     out = []
     for c in df.columns:
         if pd.api.types.is_bool_dtype(df[c]):
@@ -44,6 +66,16 @@ def _categorical_columns(df: pd.DataFrame) -> List[str]:
 
 
 def _apply_feature_engineering(df: pd.DataFrame) -> List[str]:
+    """Crea nuevas features a partir de variables existentes.
+    
+    Para Titanic: crea FamilySize (SibSp + Parch + 1) e IsAlone (FamilySize == 1).
+    
+    Args:
+        df: DataFrame a enriquecer.
+    
+    Returns:
+        Lista de nombres de features nuevas creadas.
+    """
     engineered = []
     if "SibSp" in df.columns and "Parch" in df.columns:
         df["FamilySize"] = pd.to_numeric(df["SibSp"], errors="coerce") + pd.to_numeric(df["Parch"], errors="coerce") + 1
@@ -53,6 +85,18 @@ def _apply_feature_engineering(df: pd.DataFrame) -> List[str]:
 
 
 def _apply_log_transform(df: pd.DataFrame) -> tuple[List[str], Dict[str, Dict[str, float]]]:
+    """Aplica transformación log10 a columnas numéricas con alta asimetría.
+    
+    Sólo aplica log a columnas con:
+    - Asimetría (|skew|) > SKEWNESS_THRESHOLD
+    - Sin valores negativos
+    
+    Args:
+        df: DataFrame a transformar.
+    
+    Returns:
+        Tupla (lista_columnas_transformadas, reporte_asimetría_antes_despues).
+    """
     log_cols = []
     skew_report: Dict[str, Dict[str, float]] = {}
 
@@ -63,16 +107,20 @@ def _apply_log_transform(df: pd.DataFrame) -> tuple[List[str], Dict[str, Dict[st
             continue
 
         skew_val = float(series_no_na.skew())
+        # Solo si la asimetría es significativa
         if abs(skew_val) < SKEWNESS_THRESHOLD:
             continue
 
+        # No aplicar log a valores negativos
         if (series_no_na < 0).any():
             continue
 
+        # Aplicar transformación log10
         log_col = f"{col}_log10"
         df[log_col] = np.log10(series + 1)
         log_cols.append(col)
 
+        # Calcular asimetría después de transformación
         log_skew = float(df[log_col].dropna().skew()) if df[log_col].dropna().size > 0 else 0.0
         skew_report[col] = {
             "skew_before": skew_val,
@@ -83,11 +131,23 @@ def _apply_log_transform(df: pd.DataFrame) -> tuple[List[str], Dict[str, Dict[st
 
 
 def _label_encode(df: pd.DataFrame, cat_cols: List[str]) -> tuple[pd.DataFrame, Dict[str, Dict[str, int]]]:
+    """Codifica variables categóricas con etiquetas numéricas (0, 1, 2, ...).
+    
+    Ordena alfabeticamente y asigna enteros secuenciales.
+    
+    Args:
+        df: DataFrame a codificar.
+        cat_cols: Lista de columnas categóricas a codificar.
+    
+    Returns:
+        Tupla (df_codificado, diccionario_mapeos_categorias).
+    """
     out = df.copy()
     mappings: Dict[str, Dict[str, int]] = {}
 
     for col in cat_cols:
         series = out[col].astype(str).str.strip()
+        # Orden alfabético de clases
         classes = sorted([c for c in series.dropna().unique().tolist()])
         mapping = {cls: i for i, cls in enumerate(classes)}
         mappings[col] = mapping
@@ -97,12 +157,34 @@ def _label_encode(df: pd.DataFrame, cat_cols: List[str]) -> tuple[pd.DataFrame, 
 
 
 def _one_hot_encode(df: pd.DataFrame, cat_cols: List[str]) -> pd.DataFrame:
+    """Aplica One-Hot Encoding a variables categóricas.
+    
+    Crea una columna binaria por cada categoría única.
+    
+    Args:
+        df: DataFrame a codificar.
+        cat_cols: Lista de columnas categóricas.
+    
+    Returns:
+        DataFrame con one-hot encoding aplicado.
+    """
     if not cat_cols:
         return df.copy()
     return pd.get_dummies(df, columns=cat_cols, drop_first=False)
 
 
 def _binary_encode(df: pd.DataFrame, cat_cols: List[str]) -> pd.DataFrame:
+    """Aplica Binary Encoding (category_encoders) a variables categóricas.
+    
+    Más compacto que one-hot para categorías con muchas clases.
+    
+    Args:
+        df: DataFrame a codificar.
+        cat_cols: Lista de columnas categóricas.
+    
+    Returns:
+        DataFrame con binary encoding aplicado.
+    """
     if not cat_cols:
         return df.copy()
     encoder = ce.BinaryEncoder(cols=cat_cols, return_df=True)
@@ -110,12 +192,40 @@ def _binary_encode(df: pd.DataFrame, cat_cols: List[str]) -> pd.DataFrame:
 
 
 def _build_output_path(csv_path: Optional[Path], suffix: str) -> Path:
+    """Construye path de salida con sufijo descriptivo.
+    
+    Args:
+        csv_path: Path del CSV original (puede ser None).
+        suffix: Sufijo a añadir antes de .csv (ej: '_onehot', '_label').
+    
+    Returns:
+        Path completo para guardar el archivo transformado.
+    """
     stem = csv_path.stem if csv_path is not None else "dataset"
     name = f"{stem}_transformado{suffix}.csv"
     return PROCESSED_DIR / name
 
 
 def apply_transformations(df: pd.DataFrame, csv_path: Optional[Path] = None) -> TransformOutput:
+    """Función principal: aplica todas las transformaciones de features.
+    
+    Pasos realizados:
+    1. Feature engineering (si aplica, ej: FamilySize en Titanic)
+    2. Transformación log de variables asimétricas
+    3. Identificación de columnas categóricas
+    4. Aplicación de tres métodos de encoding:
+       - One-Hot: columnas binarias por categoría
+       - Label: enteros secuenciales
+       - Binary: encode binario compacto
+    5. Guardado de cuatro versiones del dataset
+    
+    Args:
+        df: DataFrame a transformar.
+        csv_path: Path al CSV original (para nombrar salidas).
+    
+    Returns:
+        TransformOutput con todos los datasets y metadatos de transformaciones.
+    """
     ensure_processed_dir()
 
     base_df = df.copy()
@@ -127,6 +237,7 @@ def apply_transformations(df: pd.DataFrame, csv_path: Optional[Path] = None) -> 
     label_df, mappings = _label_encode(base_df, cat_cols)
     binary_df = _binary_encode(base_df, cat_cols)
 
+    # Construir rutas de salida
     output_paths = {
         "base": _build_output_path(csv_path, ""),
         "onehot": _build_output_path(csv_path, "_onehot"),
@@ -134,6 +245,7 @@ def apply_transformations(df: pd.DataFrame, csv_path: Optional[Path] = None) -> 
         "binary": _build_output_path(csv_path, "_binary"),
     }
 
+    # Guardar cada versión
     base_df.to_csv(output_paths["base"], index=False, encoding="utf-8")
     onehot_df.to_csv(output_paths["onehot"], index=False, encoding="utf-8")
     label_df.to_csv(output_paths["label"], index=False, encoding="utf-8")

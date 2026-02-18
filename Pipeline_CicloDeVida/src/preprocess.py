@@ -16,6 +16,10 @@ PROCESSED_DIR = DATA_DIR / "processed"
 
 @dataclass
 class PreprocessOutput:
+    """Contenedor del resultado del preprocesamiento.
+    
+    Almacena features normalizadas, targets, mapping de estrés y el escalador usado.
+    """
     X: pd.DataFrame
     y_gpa: pd.Series
     y_stress: pd.Series
@@ -24,10 +28,22 @@ class PreprocessOutput:
 
 
 def ensure_processed_dir() -> None:
+    """Crea directorio processed si no existe."""
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _select_features(df: pd.DataFrame) -> pd.DataFrame:
+    """Extrae solo columnas de hábitos como features para el modelo.
+    
+    Args:
+        df: DataFrame con todas las columnas.
+    
+    Returns:
+        DataFrame con solo columnas de hábitos (Study, Extracurricular, Sleep, Social, Physical).
+    
+    Raises:
+        ValueError: Si no encuentra columnas de hábitos.
+    """
     # Usamos solo hábitos como features
     feature_cols = [c for c in sorted(COL_HOURS) if c in df.columns]
     if not feature_cols:
@@ -37,6 +53,14 @@ def _select_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _clean_basic(df: pd.DataFrame) -> pd.DataFrame:
+    """Limpieza básica: elimina ID y duplicados.
+    
+    Args:
+        df: DataFrame a limpiar.
+    
+    Returns:
+        DataFrame limpio sin ID e duplicados.
+    """
     df2 = df.copy()
 
     # Eliminar ID si existe
@@ -71,6 +95,24 @@ def _encode_stress_ordinal(s: pd.Series) -> Tuple[pd.Series, Dict[str, int]]:
 
 
 def preprocess(df: pd.DataFrame) -> PreprocessOutput:
+    """Función principal de preprocesamiento: limpia, selecciona features y normaliza.
+    
+    Pasos realizados:
+    1. Limpieza básica (elimina ID, duplicados)
+    2. Validación de columnas objetivo (GPA, Stress Level)
+    3. Selección de features (hábitos)
+    4. Conversión de targets a numéricos
+    5. Manejo de nulos
+    6. Codificación ordinal del Stress Level (Low=0, Moderate=1, High=2)
+    7. Normalización de features con StandardScaler
+    8. Guardado de dataset procesado
+    
+    Args:
+        df: DataFrame original a procesar.
+    
+    Returns:
+        PreprocessOutput con X (features normalizadas), targets y metadata.
+    """
     ensure_processed_dir()
 
     df2 = _clean_basic(df)

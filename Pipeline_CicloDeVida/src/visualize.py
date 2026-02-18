@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
 
 from .config import (
     FIGURES_DIR,
@@ -20,16 +22,39 @@ try:
 except Exception:
     umap = None
 
+# Plotly (opcional para HTML interactivo)
+try:
+    import plotly.express as px
+except Exception:
+    px = None
+
 
 def ensure_figures_dir() -> None:
+    """Crea directorio de figuras si no existe."""
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def _numeric_columns(df: pd.DataFrame) -> List[str]:
+    """Retorna lista de columnas con tipo numérico.
+    
+    Args:
+        df: DataFrame a inspeccionar.
+    
+    Returns:
+        Lista de nombres de columnas numéricas.
+    """
     return [c for c in df.columns if pd.api.types.is_numeric_dtype(df[c])]
 
 
 def save_histograms(df: pd.DataFrame) -> None:
+    """Genera histogramas de todas las variables numéricas.
+    
+    Incluye líneas de media y mediana en cada histograma.
+    Guarda archivo 'histogramas_todas_variables.png'.
+    
+    Args:
+        df: DataFrame a visualizar.
+    """
     ensure_figures_dir()
     num_cols = _numeric_columns(df)
     
@@ -194,6 +219,14 @@ def save_outlier_comparison(df: pd.DataFrame) -> None:
 
 
 def save_scatter_habits_vs_gpa(df: pd.DataFrame) -> None:
+    """Genera scatter plots de cada hábito vs GPA para visualizar relaciones.
+    
+    Crea un gráfico por cada variable de hábitos disponible.
+    Guarda archivo 'scatters_habitos_vs_gpa.png'.
+    
+    Args:
+        df: DataFrame con hábitos y GPA.
+    """
     ensure_figures_dir()
     if COL_GPA not in df.columns:
         return
@@ -226,6 +259,14 @@ def save_scatter_habits_vs_gpa(df: pd.DataFrame) -> None:
 
 
 def save_boxplots_by_stress(df: pd.DataFrame) -> None:
+    """Genera box plots para visualizar distribución de variables por nivel de estrés.
+    
+    Crea un gráfico por cada hábito y GPA, agrupados por Stress Level.
+    Guarda archivo 'boxplots_por_stress.png'.
+    
+    Args:
+        df: DataFrame con variables y Stress Level.
+    """
     ensure_figures_dir()
     if COL_STRESS not in df.columns:
         return
@@ -269,6 +310,15 @@ def save_boxplots_by_stress(df: pd.DataFrame) -> None:
 
 
 def save_correlation_heatmap(df: pd.DataFrame, method: str = "pearson") -> None:
+    """Genera heatmap de matriz de correlación de variables numéricas.
+    
+    Visualiza relaciones lineales entre variables.
+    Guarda archivo 'corr_heatmap_<method>.png'.
+    
+    Args:
+        df: DataFrame a analizar.
+        method: Método de correlación ('pearson' o 'spearman').
+    """
     ensure_figures_dir()
     num_cols = _numeric_columns(df)
     if len(num_cols) < 2:
@@ -356,6 +406,118 @@ def _prepare_umap_matrix(df: pd.DataFrame) -> Tuple[np.ndarray, List[str]]:
     # Si hubiera nulos (por conversión), los eliminamos solo para UMAP
     X = X.dropna(axis=0, how="any")
     return X.values, feature_cols
+
+
+def save_pca_2d(df: pd.DataFrame) -> None:
+    """Genera proyección PCA 2D coloreada por GPA y Stress Level.
+    
+    Reduce dimensionalidad con PCA y visualiza primeros 2 componentes.
+    Genera dos gráficos: uno por GPA (escala) y otro por Stress (categorías).
+    Guarda archivos 'pca_2d_gpa.png' y 'pca_2d_stress.png'.
+    
+    Args:
+        df: DataFrame con hábitos, GPA y Stress Level.
+    """
+    ensure_figures_dir()
+
+    X, feature_cols = _prepare_umap_matrix(df)
+
+    df_aligned = df[feature_cols + [c for c in [COL_GPA, COL_STRESS] if c in df.columns]].copy()
+    df_aligned = df_aligned.dropna(axis=0, how="any")
+
+    scaler = StandardScaler()
+    Xs = scaler.fit_transform(X)
+
+    pca = PCA(n_components=2, random_state=42)
+    emb2 = pca.fit_transform(Xs)
+
+    if COL_GPA in df_aligned.columns:
+        plt.figure()
+        sc = plt.scatter(emb2[:, 0], emb2[:, 1], c=df_aligned[COL_GPA].values, s=10)
+        plt.title("PCA 2D (habitos) coloreado por GPA")
+        plt.xlabel("PCA-1")
+        plt.ylabel("PCA-2")
+        plt.colorbar(sc, label="GPA")
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "pca_2d_gpa.png", dpi=180)
+        plt.close()
+
+    if COL_STRESS in df_aligned.columns:
+        stress = df_aligned[COL_STRESS].astype(str).values
+        classes = sorted(np.unique(stress))
+        class_to_int = {c: i for i, c in enumerate(classes)}
+        stress_int = np.array([class_to_int[s] for s in stress])
+
+        plt.figure()
+        sc = plt.scatter(emb2[:, 0], emb2[:, 1], c=stress_int, s=10)
+        plt.title("PCA 2D (habitos) coloreado por Stress Level")
+        plt.xlabel("PCA-1")
+        plt.ylabel("PCA-2")
+        cb = plt.colorbar(sc)
+        cb.set_ticks(range(len(classes)))
+        cb.set_ticklabels(classes)
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "pca_2d_stress.png", dpi=180)
+        plt.close()
+
+
+def save_tsne_2d(df: pd.DataFrame, random_state: int = 42) -> None:
+    """
+    Genera t-SNE 2D coloreado por GPA y por Stress Level.
+    """
+    ensure_figures_dir()
+
+    X, feature_cols = _prepare_umap_matrix(df)
+    n_samples = X.shape[0]
+    if n_samples < 5:
+        return
+
+    df_aligned = df[feature_cols + [c for c in [COL_GPA, COL_STRESS] if c in df.columns]].copy()
+    df_aligned = df_aligned.dropna(axis=0, how="any")
+
+    scaler = StandardScaler()
+    Xs = scaler.fit_transform(X)
+
+    max_perplexity = max(2, (n_samples - 1) // 3)
+    perplexity = min(30, max_perplexity)
+
+    tsne = TSNE(
+        n_components=2,
+        perplexity=perplexity,
+        learning_rate="auto",
+        init="pca",
+        random_state=random_state,
+    )
+    emb2 = tsne.fit_transform(Xs)
+
+    if COL_GPA in df_aligned.columns:
+        plt.figure()
+        sc = plt.scatter(emb2[:, 0], emb2[:, 1], c=df_aligned[COL_GPA].values, s=10)
+        plt.title("t-SNE 2D (habitos) coloreado por GPA")
+        plt.xlabel("t-SNE-1")
+        plt.ylabel("t-SNE-2")
+        plt.colorbar(sc, label="GPA")
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "tsne_2d_gpa.png", dpi=180)
+        plt.close()
+
+    if COL_STRESS in df_aligned.columns:
+        stress = df_aligned[COL_STRESS].astype(str).values
+        classes = sorted(np.unique(stress))
+        class_to_int = {c: i for i, c in enumerate(classes)}
+        stress_int = np.array([class_to_int[s] for s in stress])
+
+        plt.figure()
+        sc = plt.scatter(emb2[:, 0], emb2[:, 1], c=stress_int, s=10)
+        plt.title("t-SNE 2D (habitos) coloreado por Stress Level")
+        plt.xlabel("t-SNE-1")
+        plt.ylabel("t-SNE-2")
+        cb = plt.colorbar(sc)
+        cb.set_ticks(range(len(classes)))
+        cb.set_ticklabels(classes)
+        plt.tight_layout()
+        plt.savefig(FIGURES_DIR / "tsne_2d_stress.png", dpi=180)
+        plt.close()
 
 
 def save_umap_2d_3d(df: pd.DataFrame, random_state: int = 42) -> None:
@@ -450,6 +612,19 @@ def save_umap_2d_3d(df: pd.DataFrame, random_state: int = 42) -> None:
         plt.savefig(FIGURES_DIR / "umap_3d_gpa.png", dpi=180)
         plt.close()
 
+        if px is None:
+            raise ImportError("Plotly no está instalado. Instala con: pip install plotly")
+
+        fig_html = px.scatter_3d(
+            x=emb3[:, 0],
+            y=emb3[:, 1],
+            z=emb3[:, 2],
+            color=df_aligned[COL_GPA].values,
+            title="UMAP 3D (habitos) coloreado por GPA",
+            labels={"x": "UMAP-1", "y": "UMAP-2", "z": "UMAP-3"},
+        )
+        fig_html.write_html(FIGURES_DIR / "umap_3d_gpa.html")
+
     # 3D coloreado por Stress
     if COL_STRESS in df_aligned.columns:
         stress = df_aligned[COL_STRESS].astype(str).values
@@ -471,8 +646,36 @@ def save_umap_2d_3d(df: pd.DataFrame, random_state: int = 42) -> None:
         plt.savefig(FIGURES_DIR / "umap_3d_stress.png", dpi=180)
         plt.close()
 
+        if px is None:
+            raise ImportError("Plotly no está instalado. Instala con: pip install plotly")
+
+        fig_html = px.scatter_3d(
+            x=emb3[:, 0],
+            y=emb3[:, 1],
+            z=emb3[:, 2],
+            color=stress_int,
+            title="UMAP 3D (habitos) coloreado por Stress Level",
+            labels={"x": "UMAP-1", "y": "UMAP-2", "z": "UMAP-3"},
+        )
+        fig_html.update_traces(marker={"size": 3})
+        fig_html.write_html(FIGURES_DIR / "umap_3d_stress.html")
+
 
 def run_all_visuals(df: pd.DataFrame) -> None:
+    """Función principal: ejecuta todas las visualizaciones.
+    
+    Genera:
+    - Histogramas de todas las variables
+    - Scatter plots hábitos vs GPA
+    - Box plots por Stress Level
+    - Heatmaps de correlación (Pearson y Spearman)
+    - Box plots de outliers
+    - Comparación de estadísticas antes/después de remover outliers
+    - Proyecciones dimensionales: PCA 2D, t-SNE 2D, UMAP 2D/3D
+    
+    Args:
+        df: DataFrame a visualizar (completo, con características originales).
+    """
     save_histograms(df)
     save_scatter_habits_vs_gpa(df)
     save_boxplots_by_stress(df)
@@ -480,4 +683,6 @@ def run_all_visuals(df: pd.DataFrame) -> None:
     save_correlation_heatmap(df, method="spearman")
     save_outlier_boxplots(df)
     save_outlier_comparison(df)
+    save_pca_2d(df)
+    save_tsne_2d(df)
     save_umap_2d_3d(df)

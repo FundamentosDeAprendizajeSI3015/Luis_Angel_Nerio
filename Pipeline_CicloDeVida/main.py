@@ -10,16 +10,33 @@ from src.utils import setup_results_output
 
 
 def main():
+    """Función principal: orquesta todo el pipeline de ciclo de vida de datos.
+    
+    Ejecuta en orden:
+    1. Setup: configuración de salida a archivos de log
+    2. Ingesta: carga, perfila el dataset y valida integridad
+    3. EDA: análisis exploratorio completo (estadísticas, outliers, correlaciones)
+    4. Visualizaciones: genera gráficos (histogramas, scatter, PCA, t-SNE, UMAP)
+    5. Transformaciones: codificación de categorías (one-hot, label, binary), 
+       transformación log, feature engineering
+    6. Preprocesamiento: normalización, selección de features, codificación de targets
+    
+    Todos los outputs se guardan en reports/results/ y data/processed/.
+    Salida monitorizada en execution_log_TIMESTAMP.txt.
+    """
+    # === SETUP ===
     # Configurar redirección de salida a archivo
     log_file, output_writer = setup_results_output(RESULTS_DIR)
     print(f" Guardando resultados en: {log_file}")
     print("=" * 80)
     
-    # 1) Ingesta
+    # === STEP 1: INGESTA ===
+    # Cargar CSV, construir perfil, validar integridad
     out = ingest_and_profile()
     df = out["df"]
 
-    # 2) EDA (resumen)
+    # === STEP 2: EDA ===
+    # Análisis exploratorio completo
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     eda = run_basic_eda(df)
     with open(RESULTS_DIR / "eda_report.json", "w", encoding="utf-8") as f:
@@ -29,7 +46,7 @@ def main():
     print("\n" + "=" * 80)
     print("ANÁLISIS EXPLORATORIO DE DATOS (EDA)")
     print("=" * 80)
-    print("\n Medidas Estadísticas (Media, Mediana, Moda, Desv. Est.):")
+    print("\n Medidas Estadísticas (Media, Mediana, Moda, Desv. Est.):").rstrip()
     for col, stats in eda.statistical_measures.items():
         print(f"\n  {col}:")
         print(f"    • Media: {stats.get('media', 'N/A'):.4f}")
@@ -50,12 +67,15 @@ def main():
             print(f"    • Impacto en media por eliminar outliers: {analysis.get('impacto_remocion', {}).get('media', {}).get('cambio_porcentaje', 0):.2f}%")
             print(f"    • Impacto en desv. estándar: {analysis.get('impacto_remocion', {}).get('desv_estandar', {}).get('cambio_porcentaje', 0):.2f}%")
 
-    # 3) Visualizaciones (incluye UMAP)
+    # === STEP 3: VISUALIZACIONES ===
+    # Generar todos los gráficos exploratorios (histogramas, scatter, correlaciones, PCA, t-SNE, UMAP)
     run_all_visuals(df)
 
-    # 4) Transformaciones (encoding, log, feature engineering)
+    # === STEP 4: TRANSFORMACIONES ===
+    # Aplicar feature engineering, transformación log, y múltiples encodings (one-hot, label, binary)
     transform_out = apply_transformations(df, out.get("csv_path"))
     save_log_transform_comparison(df, transform_out.base_df, transform_out.log_transform_cols)
+    # Guardar reporte detallado de transformaciones
     with open(RESULTS_DIR / "transform_report.json", "w", encoding="utf-8") as f:
         json.dump(
             {
@@ -70,25 +90,27 @@ def main():
             indent=2,
         )
 
-    # 5) Preprocesamiento
+    # === STEP 5: PREPROCESAMIENTO ===
+    # Normalizar features con StandardScaler, codificar targets (GPA numérico, Stress ordinal)
     prep = preprocess(df)
 
-    # Guardar mapping estrés
+    # Guardar mapping de estrés (Low=0, Moderate=1, High=2)
     with open(RESULTS_DIR / "stress_mapping.json", "w", encoding="utf-8") as f:
         json.dump(prep.stress_mapping, f, ensure_ascii=False, indent=2)
 
-    # Proceso completado
+    # === FINAL: RESUMEN ===
     print("\n" + "=" * 80)
-    print(" ANÁLISIS COMPLETADO")
+    print(" ANÁLISIS COMPLETADO - PIPELINE EXITOSO")
     print("\n Archivos generados:")
-    print("- reports/results/eda_report.json")
-    print("- reports/results/transform_report.json")
-    print("- reports/results/stress_mapping.json")
-    print("- reports/figures/ (incluye visualizaciones)")
-    print("- data/processed/ (datasets transformados)")
+    print("- reports/results/eda_report.json (análisis exploratorio completo)")
+    print("- reports/results/transform_report.json (transformaciones aplicadas)")
+    print("- reports/results/stress_mapping.json (mapeo de variables categóricas)")
+    print("- reports/figures/ (gráficos: histogramas, correlaciones, PCA, t-SNE, UMAP)")
+    print("- data/processed/ (datasets transformados en 4 versiones)")
     
     print("\n" + "=" * 80)
-    print(f" Ejecución completada. Log guardado en: {log_file}")
+    print(f" ✓ Ejecución completada. Log guardado en: {log_file}")
+    print("=" * 80)
     
     # Cerrar el archivo de salida si es necesario
     if hasattr(output_writer, 'close'):
