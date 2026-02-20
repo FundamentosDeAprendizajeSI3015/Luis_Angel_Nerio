@@ -1,0 +1,4 @@
+Mejores parámetros:
+{'classifier__C': np.float64(0.252072191653675), 'classifier__penalty': 'l2', 'classifier__solver': 'lbfgs'}
+Accuracy: 0.8333333333333334
+F1 score: 0.7428571428571429
