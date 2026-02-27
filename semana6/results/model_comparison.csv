@@ -1,0 +1,7 @@
+Modelo,Conjunto,Accuracy,Precision,Recall,F1-Score
+Random Forest,train,1.0,1.0,1.0,1.0
+Random Forest,val,1.0,1.0,1.0,1.0
+Random Forest,test,1.0,1.0,1.0,1.0
+Gradient Boosting,train,1.0,1.0,1.0,1.0
+Gradient Boosting,val,1.0,1.0,1.0,1.0
+Gradient Boosting,test,1.0,1.0,1.0,1.0

@@ -1,0 +1,24 @@
+{
+    "features": [
+        "Study_Hours_Per_Day",
+        "Extracurricular_Hours_Per_Day",
+        "Sleep_Hours_Per_Day",
+        "Social_Hours_Per_Day",
+        "Physical_Activity_Hours_Per_Day",
+        "GPA"
+    ],
+    "target": "Stress_Level",
+    "target_classes": [
+        "Moderate",
+        "Low",
+        "High"
+    ],
+    "n_features": 6,
+    "train_size": 1200,
+    "train_percentage": 60,
+    "val_size": 400,
+    "val_percentage": 20,
+    "test_size": 400,
+    "test_percentage": 20,
+    "total_samples": 2000
+}
