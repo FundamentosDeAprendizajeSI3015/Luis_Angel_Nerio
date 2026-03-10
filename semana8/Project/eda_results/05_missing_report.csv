@@ -1,0 +1,17 @@
+column,missing_count,missing_pct,dtype
+endeudamiento,8,10.0,float64
+cfo,5,6.25,float64
+participacion_ley30,4,5.0,float64
+tendencia_ingresos,3,3.75,float64
+liquidez,2,2.5,float64
+dias_efectivo,1,1.25,float64
+hhi_fuentes,1,1.25,float64
+anio,0,0.0,int64
+gastos_personal,0,0.0,float64
+gp_ratio,0,0.0,float64
+ingresos_totales,0,0.0,float64
+label,0,0.0,int64
+participacion_matriculas,0,0.0,float64
+participacion_regalias,0,0.0,float64
+participacion_servicios,0,0.0,float64
+unidad,0,0.0,str

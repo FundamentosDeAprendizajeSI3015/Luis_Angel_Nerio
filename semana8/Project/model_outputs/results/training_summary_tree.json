@@ -1,0 +1,28 @@
+{
+  "best_params": {
+    "criterion": "gini",
+    "max_depth": 3,
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "ccp_alpha": 0.0,
+    "class_weight": null
+  },
+  "best_threshold": 0.168,
+  "train_shape": [
+    56,
+    29
+  ],
+  "valid_shape": [
+    8,
+    29
+  ],
+  "test_shape": [
+    8,
+    29
+  ],
+  "holdout_shape": [
+    8,
+    29
+  ],
+  "feature_count": 29
+}

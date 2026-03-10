@@ -1,0 +1,109 @@
+
+================================================================================
+INICIO EDA - FIRE UdeA Dataset Realista
+================================================================================
+[INFO] Ruta dataset: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\dataset_sintetico_FIRE_UdeA_realista.csv
+[OK] Dataset cargado correctamente
+[INFO] Forma del dataset: (80, 16)
+[INFO] Columnas: ['anio', 'unidad', 'ingresos_totales', 'gastos_personal', 'liquidez', 'dias_efectivo', 'cfo', 'participacion_ley30', 'participacion_regalias', 'participacion_servicios', 'participacion_matriculas', 'hhi_fuentes', 'endeudamiento', 'tendencia_ingresos', 'gp_ratio', 'label']
+
+================================================================================
+1) EXPLORACION GENERAL
+================================================================================
+[OK] Se guardo info general y estadisticas descriptivas
+
+[INFO] Primeras 5 filas:
+   anio                  unidad  ingresos_totales  ...  tendencia_ingresos  gp_ratio  label
+0  2016  Facultad de Ingeniería      1.849089e+11  ...            0.032173  0.422933      0
+1  2017  Facultad de Ingeniería      1.663532e+11  ...            0.030046  0.540447      1
+2  2018  Facultad de Ingeniería      1.629845e+11  ...           -0.043021  0.502005      1
+3  2019  Facultad de Ingeniería      1.527366e+11  ...           -0.024940  0.551516      0
+4  2020  Facultad de Ingeniería      1.728688e+11  ...            0.024130  0.571795      1
+
+[5 rows x 16 columns]
+
+================================================================================
+2) CALIDAD DE DATOS
+================================================================================
+[OK] Reporte de nulos guardado
+                      column  missing_count  missing_pct    dtype
+12             endeudamiento              8        10.00  float64
+6                        cfo              5         6.25  float64
+7        participacion_ley30              4         5.00  float64
+13        tendencia_ingresos              3         3.75  float64
+4                   liquidez              2         2.50  float64
+5              dias_efectivo              1         1.25  float64
+11               hhi_fuentes              1         1.25  float64
+0                       anio              0         0.00    int64
+3            gastos_personal              0         0.00  float64
+14                  gp_ratio              0         0.00  float64
+2           ingresos_totales              0         0.00  float64
+15                     label              0         0.00    int64
+10  participacion_matriculas              0         0.00  float64
+8     participacion_regalias              0         0.00  float64
+9    participacion_servicios              0         0.00  float64
+
+[INFO] Filas duplicadas: 0
+
+[INFO] Distribucion de label:
+   label  count   pct
+0      0     42  52.5
+1      1     38  47.5
+
+================================================================================
+3) EDA UNIVARIADO
+================================================================================
+[INFO] Variables numericas detectadas (15): ['anio', 'ingresos_totales', 'gastos_personal', 'liquidez', 'dias_efectivo', 'cfo', 'participacion_ley30', 'participacion_regalias', 'participacion_servicios', 'participacion_matriculas', 'hhi_fuentes', 'endeudamiento', 'tendencia_ingresos', 'gp_ratio', 'label']
+[OK] Graficos univariados guardados
+
+================================================================================
+4) OUTLIERS IQR
+================================================================================
+[OK] Reporte de outliers guardado
+                    feature            q1            q3  ...   upper_bound  outlier_count  outlier_pct
+5                       cfo  4.222412e+09  1.128300e+10  ...  2.187388e+10             13        17.33
+13                 gp_ratio  5.127825e-01  5.575113e-01  ...  6.246046e-01              4         5.00
+11            endeudamiento  3.451367e-01  4.227527e-01  ...  5.391767e-01              4         5.56
+8   participacion_servicios  1.836164e-01  2.445741e-01  ...  3.360106e-01              2         2.50
+10              hhi_fuentes  2.386670e-01  2.626009e-01  ...  2.985017e-01              2         2.53
+3                  liquidez  1.234751e+00  1.511790e+00  ...  1.927348e+00              1         1.28
+7    participacion_regalias  4.890641e-02  7.509729e-02  ...  1.143836e-01              1         1.25
+2           gastos_personal  4.245699e+10  1.006484e+11  ...  1.879356e+11              0         0.00
+0                      anio  2.018000e+03  2.023000e+03  ...  2.030500e+03              0         0.00
+1          ingresos_totales  8.164123e+10  1.867022e+11  ...  3.442937e+11              0         0.00
+4             dias_efectivo  7.414818e+01  1.141645e+02  ...  1.741890e+02              0         0.00
+6       participacion_ley30  2.892652e-01  3.644239e-01  ...  4.771621e-01              0         0.00
+
+[12 rows x 8 columns]
+
+================================================================================
+5) EDA BIVARIADO Y CORRELACIONES
+================================================================================
+[OK] Correlaciones calculadas y heatmap guardado
+
+[INFO] Top correlaciones con label:
+                    feature  pearson_with_label
+0                  gp_ratio            0.429428
+1                       cfo           -0.422841
+2             dias_efectivo           -0.360356
+3             endeudamiento            0.334509
+4                  liquidez           -0.271244
+5                      anio            0.270158
+6               hhi_fuentes            0.228867
+7   participacion_servicios           -0.157805
+8        tendencia_ingresos            0.152861
+9  participacion_matriculas           -0.125478
+[OK] Analisis temporal por unidad guardado
+
+================================================================================
+6) UMAP 2D Y 3D
+================================================================================
+[OK] UMAP 2D y 3D generados y guardados
+
+================================================================================
+7) RESUMEN FINAL
+================================================================================
+[OK] EDA finalizado correctamente
+[INFO] Carpetas de salida:
+  - Figuras: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\eda_figures
+  - Reportes: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\eda_results

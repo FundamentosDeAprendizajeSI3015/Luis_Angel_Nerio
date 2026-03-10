@@ -1,0 +1,4 @@
+Mejores parámetros:
+{'classifier__C': np.float64(0.00030260026187599646), 'classifier__penalty': 'l2', 'classifier__solver': 'liblinear', 'poly__degree': 2}
+Accuracy: 0.8333333333333334
+F1 score: 0.7272727272727273

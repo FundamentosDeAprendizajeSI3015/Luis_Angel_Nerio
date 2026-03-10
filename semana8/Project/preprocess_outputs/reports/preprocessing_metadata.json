@@ -1,0 +1,70 @@
+{
+  "input_dataset": "c:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Lecture08\\Project\\dataset_sintetico_FIRE_UdeA_realista.csv",
+  "total_rows": 80,
+  "total_columns": 23,
+  "split_sizes": {
+    "train": 56,
+    "valid": 8,
+    "test": 8,
+    "holdout": 8
+  },
+  "feature_count_processed": 29,
+  "numeric_features_used": [
+    "anio",
+    "ingresos_totales",
+    "gastos_personal",
+    "liquidez",
+    "dias_efectivo",
+    "cfo",
+    "participacion_ley30",
+    "participacion_regalias",
+    "participacion_servicios",
+    "participacion_matriculas",
+    "hhi_fuentes",
+    "endeudamiento",
+    "tendencia_ingresos",
+    "gp_ratio",
+    "ratio_gastos_personal_ingresos",
+    "ratio_cfo_ingresos",
+    "ratio_liquidez_endeudamiento",
+    "diversificacion_fuentes",
+    "anios_cobertura_efectivo",
+    "delta_gp_ratio_anual",
+    "delta_liquidez_anual"
+  ],
+  "categorical_features_used": [
+    "unidad"
+  ],
+  "iqr_capped_columns": [
+    "anio",
+    "ingresos_totales",
+    "gastos_personal",
+    "liquidez",
+    "dias_efectivo",
+    "cfo",
+    "participacion_ley30",
+    "participacion_regalias",
+    "participacion_servicios",
+    "participacion_matriculas",
+    "hhi_fuentes",
+    "endeudamiento",
+    "tendencia_ingresos",
+    "gp_ratio",
+    "ratio_gastos_personal_ingresos",
+    "ratio_cfo_ingresos",
+    "ratio_liquidez_endeudamiento",
+    "diversificacion_fuentes",
+    "anios_cobertura_efectivo",
+    "delta_gp_ratio_anual",
+    "delta_liquidez_anual"
+  ],
+  "train_class_distribution": {
+    "0": 35,
+    "1": 21
+  },
+  "recommended_class_weights": {
+    "0": 0.8,
+    "1": 1.3333333333333333
+  },
+  "recommended_modeling_note": "Usar valid para tuning de hiperparametros y umbral; dejar test y holdout solo para evaluacion final."
+}

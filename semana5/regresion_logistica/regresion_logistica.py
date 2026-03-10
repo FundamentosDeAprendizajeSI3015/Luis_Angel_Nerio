@@ -9,6 +9,7 @@ from scipy.stats import reciprocal
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.decomposition import PCA
 from sklearn.metrics import f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score, roc_curve, roc_auc_score
 
@@ -75,13 +76,19 @@ def plot_binary_classifcation(X, y, classifier=None, contour_alpha=0.1):
         
         # Obtener los mejores parámetros del clasificador original
         best_params = classifier.best_params_
-        model_pca = LogisticRegression(
-            C=best_params['classifier__C'],
-            penalty=best_params['classifier__penalty'],
-            solver=best_params['classifier__solver'],
-            max_iter=1000,
-            random_state=random_state
-        )
+        
+        # Crear pipeline para visualización con los mejores parámetros
+        model_pca = Pipeline([
+            ('poly', PolynomialFeatures(degree=best_params['poly__degree'], include_bias=False)),
+            ('scaler', StandardScaler()),
+            ('classifier', LogisticRegression(
+                C=best_params['classifier__C'],
+                penalty=best_params['classifier__penalty'],
+                solver=best_params['classifier__solver'],
+                max_iter=1000,
+                random_state=random_state
+            ))
+        ])
         model_pca.fit(X_train_pca, y_train_pca)
         
         X_ = np.array([xx1.ravel(), xx2.ravel()]).T
@@ -101,11 +108,14 @@ def plot_binary_classifcation(X, y, classifier=None, contour_alpha=0.1):
 
 # Definamos un pipeline de scikit-learn con nuestro modelo base:
 lr_base = Pipeline([
+    ('poly', PolynomialFeatures(include_bias=False)),
+    ('scaler', StandardScaler()),
     ('classifier', LogisticRegression(max_iter=1000, random_state=random_state))
 ])
 
 # Definamos las distribuciones de parámetros sobre las que haremos la búsqueda:
 param_distributions = {
+    'poly__degree': list(range(2, 8)),
     'classifier__C': reciprocal(1e-5, 1e5),
     'classifier__penalty': ['l2'],
     'classifier__solver': ['lbfgs', 'liblinear']
@@ -116,7 +126,7 @@ lr = RandomizedSearchCV(
     lr_base,
     cv=4,
     param_distributions=param_distributions,
-    n_iter=50,
+    n_iter=200,
     random_state=random_state
 )
 

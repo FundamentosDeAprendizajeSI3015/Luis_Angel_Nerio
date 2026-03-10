@@ -1,0 +1,51 @@
+
+==========================================================================================
+INICIO PREPROCESAMIENTO FIRE-UDEA
+==========================================================================================
+[INFO] Dataset: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\dataset_sintetico_FIRE_UdeA_realista.csv
+[OK] Dataset cargado: (80, 16)
+
+==========================================================================================
+1) LIMPIEZA BASE
+==========================================================================================
+[OK] Dataset limpio base: (80, 16)
+[INFO] Duplicados despues de limpiar: 0
+[INFO] Filas removidas por label nulo: 0
+
+==========================================================================================
+2) FEATURE ENGINEERING
+==========================================================================================
+[OK] Columnas despues de FE: 23
+
+==========================================================================================
+3) SPLIT TEMPORAL
+==========================================================================================
+[INFO] Split temporal -> train:[2016, 2017, 2018, 2019, 2020, 2021, 2022] | valid:2023 | test:2024 | holdout:2025
+[INFO] train: (56, 23)
+[INFO] valid: (8, 23)
+[INFO] test: (8, 23)
+[INFO] holdout: (8, 23)
+
+==========================================================================================
+4) CONTROL DE OUTLIERS (IQR CAPPING)
+==========================================================================================
+[OK] IQR capping aplicado en 21 columnas numericas
+
+==========================================================================================
+5) IMPUTACION + ESCALADO + ONE-HOT (SIN FUGA)
+==========================================================================================
+[OK] Matriz train procesada: (56, 29)
+[OK] Matriz valid procesada: (8, 29)
+[OK] Matriz test procesada: (8, 29)
+[OK] Matriz holdout procesada: (8, 29)
+
+==========================================================================================
+6) GUARDADO DE SALIDAS
+==========================================================================================
+[OK] Archivos guardados en preprocess_outputs
+[INFO] Procesados: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\preprocess_outputs\processed
+[INFO] Reportes: c:\Users\luisa\OneDrive\Documentos\Universidad\Aprendizaje automatico\git hub\Luis_Angel_Nerio\Lecture08\Project\preprocess_outputs\reports
+
+==========================================================================================
+PREPROCESAMIENTO FINALIZADO
+==========================================================================================

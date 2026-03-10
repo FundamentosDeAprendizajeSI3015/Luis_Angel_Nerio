@@ -77,7 +77,7 @@ lasso_base = Pipeline([
 
 # Definamos las distribuciones de parámetros sobre las que haremos la búsqueda:
 param_distributions = {
-    'poly__degree': list(range(1, 4)),
+    'poly__degree': list(range(2, 10)),
     'regressor__alpha': reciprocal(1e-5, 1e3)
 }
 

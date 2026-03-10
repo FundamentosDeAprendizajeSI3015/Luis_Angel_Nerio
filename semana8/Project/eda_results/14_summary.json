@@ -1,0 +1,13 @@
+{
+  "rows": 80,
+  "cols": 16,
+  "target_col": "label",
+  "target_prevalence": 0.475,
+  "missing_total": 24,
+  "duplicate_rows": 0,
+  "numeric_features": 15,
+  "outputs": {
+    "figures": "c:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Lecture08\\Project\\eda_figures",
+    "results": "c:\\Users\\luisa\\OneDrive\\Documentos\\Universidad\\Aprendizaje automatico\\git hub\\Luis_Angel_Nerio\\Lecture08\\Project\\eda_results"
+  }
+}

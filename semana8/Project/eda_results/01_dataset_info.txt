@@ -1,0 +1,23 @@
+<class 'pandas.DataFrame'>
+RangeIndex: 80 entries, 0 to 79
+Data columns (total 16 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   anio                      80 non-null     int64  
+ 1   unidad                    80 non-null     str    
+ 2   ingresos_totales          80 non-null     float64
+ 3   gastos_personal           80 non-null     float64
+ 4   liquidez                  78 non-null     float64
+ 5   dias_efectivo             79 non-null     float64
+ 6   cfo                       75 non-null     float64
+ 7   participacion_ley30       76 non-null     float64
+ 8   participacion_regalias    80 non-null     float64
+ 9   participacion_servicios   80 non-null     float64
+ 10  participacion_matriculas  80 non-null     float64
+ 11  hhi_fuentes               79 non-null     float64
+ 12  endeudamiento             72 non-null     float64
+ 13  tendencia_ingresos        77 non-null     float64
+ 14  gp_ratio                  80 non-null     float64
+ 15  label                     80 non-null     int64  
+dtypes: float64(13), int64(2), str(1)
+memory usage: 10.1 KB
