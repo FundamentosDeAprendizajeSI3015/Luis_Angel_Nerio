@@ -1,0 +1,8 @@
+Resumen de agrupamiento - dataset UdeA
+
+KMeans K=2 -> inercia: 3093.500323
+KMeans mejor K (silhouette): 9
+KMeans K=9 -> inercia: 2018.314757
+
+DBSCAN distribucion de etiquetas (incluye -1 como ruido):
+{-1: 500}
