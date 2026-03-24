@@ -8,10 +8,12 @@ Incluye:
 - Seleccion automatica de K (por silhouette) para un segundo KMeans.
 - DBSCAN.
 - Visualizacion de todos los resultados usando UMAP.
+- Generacion de HTML interactivos 3D con Plotly.
 
 Salidas:
 - Graficas en carpeta "graficas/agrupamiento_realista".
 - CSV con etiquetas de cluster en carpeta "resultados/agrupamiento_realista".
+- HTML interactivos 3D en carpeta "graficas/agrupamiento_realista".
 """
 
 from __future__ import annotations
@@ -22,6 +24,7 @@ from typing import Dict, List
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import plotly.graph_objects as go
 from sklearn.cluster import DBSCAN, KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.pipeline import Pipeline
@@ -143,6 +146,65 @@ def plot_umap(
     plt.close(fig)
 
 
+def plot_umap_3d_interactive(
+    embedding_3d: np.ndarray,
+    labels: np.ndarray | None,
+    title: str,
+    output_path: Path,
+) -> None:
+    """Genera un HTML interactivo 3D con Plotly para visualizar y rotar clusters."""
+    if labels is None:
+        fig = go.Figure(data=[go.Scatter3d(
+            x=embedding_3d[:, 0],
+            y=embedding_3d[:, 1],
+            z=embedding_3d[:, 2],
+            mode='markers',
+            marker=dict(size=4, color='rgba(31, 119, 180, 0.7)'),
+        )])
+    else:
+        labels_array = np.asarray(labels, dtype=float)
+        cmap = plt.get_cmap("tab10")
+        vmin = float(np.min(labels_array))
+        vmax = float(np.max(labels_array))
+        if vmin == vmax:
+            normalized = np.zeros_like(labels_array)
+        else:
+            normalized = (labels_array - vmin) / (vmax - vmin)
+
+        rgba_values = cmap(normalized)
+        color_array = [
+            f"rgba({int(r * 255)}, {int(g * 255)}, {int(b * 255)}, 0.8)"
+            for r, g, b, _ in rgba_values
+        ]
+        
+        fig = go.Figure(data=[go.Scatter3d(
+            x=embedding_3d[:, 0],
+            y=embedding_3d[:, 1],
+            z=embedding_3d[:, 2],
+            mode='markers',
+            marker=dict(
+                size=4,
+                color=color_array,
+            ),
+            text=[f"Cluster: {int(label)}" for label in labels],
+            hoverinfo='text',
+        )])
+    
+    fig.update_layout(
+        title=dict(text=title, x=0.5, xanchor='center'),
+        scene=dict(
+            xaxis_title="UMAP-1",
+            yaxis_title="UMAP-2",
+            zaxis_title="UMAP-3",
+        ),
+        width=1000,
+        height=800,
+        hovermode='closest',
+    )
+    
+    fig.write_html(str(output_path))
+
+
 def plot_umap_3d(
     embedding_3d: np.ndarray,
     labels: np.ndarray | None,
@@ -152,7 +214,6 @@ def plot_umap_3d(
     """Guarda una grafica UMAP 3D con multiples vistas (XY, XZ, YZ, isometrica)."""
     fig = plt.figure(figsize=(16, 12))
     
-    # Vista 1: Proyección XY (viendo desde arriba en Z)
     ax1 = fig.add_subplot(2, 2, 1)
     if labels is None:
         ax1.scatter(embedding_3d[:, 0], embedding_3d[:, 1], s=20, alpha=0.7)
@@ -170,7 +231,6 @@ def plot_umap_3d(
     ax1.set_title("Vista XY (superior)")
     ax1.grid(alpha=0.25)
     
-    # Vista 2: Proyección XZ
     ax2 = fig.add_subplot(2, 2, 2)
     if labels is None:
         ax2.scatter(embedding_3d[:, 0], embedding_3d[:, 2], s=20, alpha=0.7)
@@ -188,7 +248,6 @@ def plot_umap_3d(
     ax2.set_title("Vista XZ (frontal)")
     ax2.grid(alpha=0.25)
     
-    # Vista 3: Proyección YZ
     ax3 = fig.add_subplot(2, 2, 3)
     if labels is None:
         ax3.scatter(embedding_3d[:, 1], embedding_3d[:, 2], s=20, alpha=0.7)
@@ -206,7 +265,6 @@ def plot_umap_3d(
     ax3.set_title("Vista YZ (lateral)")
     ax3.grid(alpha=0.25)
     
-    # Vista 4: Vista 3D con proyección isométrica
     ax4 = fig.add_subplot(2, 2, 4, projection="3d")
     if labels is None:
         ax4.scatter(
@@ -229,7 +287,7 @@ def plot_umap_3d(
     ax4.set_xlabel("UMAP-1")
     ax4.set_ylabel("UMAP-2")
     ax4.set_zlabel("UMAP-3")
-    ax4.set_title("Vista 3D isométrica")
+    ax4.set_title("Vista 3D isometrica")
     
     fig.suptitle(title, fontsize=14, fontweight="bold")
     fig.tight_layout()
@@ -320,7 +378,7 @@ def save_summary(
     dbscan_count_map = {int(label): int(count) for label, count in zip(unique, counts)}
 
     summary_lines = [
-        "Resumen de agrupamiento - dataset realista UdeA",
+        "Resumen de agrupamiento - dataset UdeA realista",
         "",
         f"KMeans K=2 -> inercia: {kmeans2.inertia_:.6f}",
         f"KMeans mejor K (silhouette): {best_k}",
@@ -357,6 +415,13 @@ def main() -> None:
         title="UMAP 3D - Dataset realista (sin clusters)",
         output_path=outputs["figures"] / "01b_umap3d_datos_base.png",
     )
+    
+    plot_umap_3d_interactive(
+        embedding_3d=embedding_3d,
+        labels=None,
+        title="UMAP 3D - Dataset realista (sin clusters) - Interactivo",
+        output_path=outputs["figures"] / "01b_umap3d_datos_base.html",
+    )
 
     print("Entrenando KMeans con K=2...")
     kmeans2 = run_kmeans_k2(X_scaled)
@@ -374,6 +439,13 @@ def main() -> None:
         labels=kmeans2.labels_,
         title="KMeans con K=2 sobre UMAP 3D",
         output_path=outputs["figures"] / "02b_umap3d_kmeans_k2.png",
+    )
+    
+    plot_umap_3d_interactive(
+        embedding_3d=embedding_3d,
+        labels=kmeans2.labels_,
+        title="KMeans con K=2 sobre UMAP 3D - Interactivo",
+        output_path=outputs["figures"] / "02b_umap3d_kmeans_k2.html",
     )
 
     k_values = list(range(1, 11))
@@ -398,6 +470,13 @@ def main() -> None:
         title=f"KMeans con K={best_k} sobre UMAP 3D (seleccion silhouette)",
         output_path=outputs["figures"] / "04b_umap3d_kmeans_mejor_k.png",
     )
+    
+    plot_umap_3d_interactive(
+        embedding_3d=embedding_3d,
+        labels=kmeans_best.labels_,
+        title=f"KMeans con K={best_k} sobre UMAP 3D - Interactivo (seleccion silhouette)",
+        output_path=outputs["figures"] / "04b_umap3d_kmeans_mejor_k.html",
+    )
 
     print("Entrenando DBSCAN...")
     dbscan = run_dbscan(X_scaled)
@@ -417,6 +496,13 @@ def main() -> None:
         labels=dbscan.labels_,
         title="DBSCAN sobre UMAP 3D",
         output_path=outputs["figures"] / "05b_umap3d_dbscan.png",
+    )
+    
+    plot_umap_3d_interactive(
+        embedding_3d=embedding_3d,
+        labels=dbscan.labels_,
+        title="DBSCAN sobre UMAP 3D - Interactivo",
+        output_path=outputs["figures"] / "05b_umap3d_dbscan.html",
     )
 
     save_clustered_csv(

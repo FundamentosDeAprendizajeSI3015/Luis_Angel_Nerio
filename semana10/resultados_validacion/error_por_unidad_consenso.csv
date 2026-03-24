@@ -1,0 +1,9 @@
+unidad,n,errores_k2,error_pct_k2,errores_kopt,error_pct_kopt,error_pct_consenso
+Nivel Central,10,6,60.0,4,40.0,50.0
+Sedes y Seccionales,10,6,60.0,4,40.0,50.0
+Institutos,10,5,50.0,5,50.0,50.0
+Medicina,10,5,50.0,5,50.0,50.0
+Derecho,10,4,40.0,4,40.0,40.0
+Ciencias Económicas,10,4,40.0,4,40.0,40.0
+Facultad de Ingeniería,10,3,30.0,3,30.0,30.0
+Educación,10,3,30.0,3,30.0,30.0

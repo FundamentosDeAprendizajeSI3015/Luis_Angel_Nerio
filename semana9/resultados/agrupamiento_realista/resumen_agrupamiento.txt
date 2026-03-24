@@ -1,4 +1,4 @@
-Resumen de agrupamiento - dataset realista UdeA
+Resumen de agrupamiento - dataset UdeA realista
 
 KMeans K=2 -> inercia: 1440.464520
 KMeans mejor K (silhouette): 8

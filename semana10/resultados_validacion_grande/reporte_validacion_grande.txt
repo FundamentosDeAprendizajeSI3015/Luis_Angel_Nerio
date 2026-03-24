@@ -1,0 +1,67 @@
+======================================================================
+REPORTE DE VALIDACIÓN DE CLUSTERING
+Dataset UdeA Grande (No Realista) - Semana 10
+======================================================================
+
+INFORMACIÓN DEL DATASET
+----------------------------------------------------------------------
+• Número de muestras: 500
+• Número de características: 7
+• Clases en etiquetas originales: 2
+  - Clase 0: 223 muestras (44.6%)
+  - Clase 1: 277 muestras (55.4%)
+
+RESULTADOS DE CLUSTERING
+----------------------------------------------------------------------
+
+KMEANS K=2
+  • Clusters encontrados: 2
+  • Puntos de ruido: 0
+  • Adjusted Rand Index: 0.0596
+  • Normalized Mutual Information: 0.0461
+  • V-measure: 0.0461
+  • Homogeneidad: 0.0463
+  • Completitud: 0.0459
+  • PUREZA PROMEDIO: 0.6247 (62.47%)
+  → Verificación: 62.5% de los datos
+     están correctamente agrupados según sus etiquetas
+
+KMEANS K-ÓPTIMO
+  • Clusters encontrados: 9
+  • Puntos de ruido: 0
+  • Adjusted Rand Index: 0.0491
+  • Normalized Mutual Information: 0.0877
+  • V-measure: 0.0877
+  • Homogeneidad: 0.1838
+  • Completitud: 0.0576
+  • PUREZA PROMEDIO: 0.7309 (73.09%)
+  → Verificación: 73.1% de los datos
+     están correctamente agrupados según sus etiquetas
+
+======================================================================
+INTERPRETACIÓN DE RESULTADOS
+======================================================================
+
+MÉTRICAS EXPLICADAS:
+----------------------------------------------------------------------
+• ARI (Adjusted Rand Index): Mide similitud entre dos particiones.
+  Rango: [-1, 1]. Valores cercanos a 1 indican buena concordancia.
+
+• NMI (Normalized Mutual Information): Mide información compartida.
+  Rango: [0, 1]. Valores cercanos a 1 indican buena concordancia.
+
+• V-measure: Promedio armónico de homogeneidad y completitud.
+  Rango: [0, 1]. Mejor valor: 1.
+
+• PUREZA: Porcentaje de muestras en clusters correctos.
+  Rango: [0, 1]. Mejor valor: 1. ← MÁS DIRECTO E INTERPRETABLE
+
+
+RESULTADO PRINCIPAL:
+----------------------------------------------------------------------
+Mejor algoritmo: KMeans K-óptimo
+Pureza alcanzada: 73.09%
+
+✓ CONCLUSIÓN:
+Los datos tienen ESTRUCTURA PARCIALMENTE CLARA. El clustering
+recupera la estructura en 60-80% de los casos.
