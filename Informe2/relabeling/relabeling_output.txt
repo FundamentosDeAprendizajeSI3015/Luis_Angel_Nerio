@@ -1,0 +1,14 @@
+REPORTE RELABELING
+================================================================================
+Clustering shape: (2000, 10)
+Original shape: (2000, 8)
+Mejor algoritmo detectado: KMeans
+Columna de cluster final: cluster_kmeans
+Etiquetas modificadas: 854 de 2000 (42.7%)
+[ADVERTENCIA] Porcentaje de cambio elevado (42.7%). Revisar calidad del clustering.
+Cambios por clase (resumen):
+- Low: total=297, cambiadas=169, pct=56.90%, destino_principal=Moderate
+- Moderate: total=674, cambiadas=346, pct=51.34%, destino_principal=Low
+- High: total=1029, cambiadas=339, pct=32.94%, destino_principal=Low
+Homogeneidad (Stress_Level original vs clusters): 0.2211
+Homogeneidad (Stress_Level_Corrected vs clusters): 1.0000

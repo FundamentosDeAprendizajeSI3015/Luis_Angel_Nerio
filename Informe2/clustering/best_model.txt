@@ -1,0 +1,2 @@
+Mejor modelo: KMeans
+KMeans seleccionado por mejor puntaje combinado. Silhouette=0.2042, Balance=0.9915, Ruido=0.0000.

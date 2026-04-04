@@ -1,0 +1,20 @@
+Conclusiones del analisis de modelos
+================================================================================
+Mejor modelo segun F1-score: Logistic Regression (Corregido)
+Accuracy: 0.9975
+F1-score: 0.9975
+
+Mejora por reetiquetado:
+- Decision Tree: Accuracy +0.0850, F1-score +0.1076
+- Logistic Regression: Accuracy +0.1825, F1-score +0.1776
+- Linear Regression: Accuracy -0.0675, F1-score -0.0614
+
+Variables mas importantes segun el arbol corregido:
+- Physical_Activity_Hours_Per_Day: 0.4429
+- Study_Hours_Per_Day: 0.3812
+- GPA: 0.1075
+
+Interpretacion general:
+- El reetiquetado se considera util si mejora F1-score y Accuracy en la mayoria de los modelos.
+- La regresion lineal se usa como referencia y no como clasificador principal.
+- El arbol de decision aporta interpretabilidad mediante importancias de variables.

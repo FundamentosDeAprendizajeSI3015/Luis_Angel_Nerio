@@ -1,0 +1,29 @@
+REPORTE MODELOS
+================================================================================
+Original shape: (2000, 7)
+Corregido shape: (2000, 15)
+Decision Tree Original: Acc=0.8525, F1=0.8282
+Decision Tree Corregido: Acc=0.9375, F1=0.9358
+Logistic Regression Original: Acc=0.8150, F1=0.8199
+Logistic Regression Corregido: Acc=0.9975, F1=0.9975
+Linear Regression Original: Acc=0.7800, F1=0.7769
+Linear Regression Corregido: Acc=0.7125, F1=0.7155
+METRICAS PRINCIPALES
+             Modelo   Dataset  Accuracy  F1-score  Precision   Recall      MAE       R2
+      Decision Tree  Original    0.8525  0.828199   0.820412 0.843971      NaN      NaN
+      Decision Tree Corregido    0.9375  0.935786   0.934709 0.937292      NaN      NaN
+Logistic Regression  Original    0.8150  0.819894   0.803862 0.841559      NaN      NaN
+Logistic Regression Corregido    0.9975  0.997467   0.997877 0.997076      NaN      NaN
+  Linear Regression  Original    0.7800  0.776944   0.818528 0.766538 0.347012 0.668721
+  Linear Regression Corregido    0.7125  0.715504   0.775026 0.718601 0.389594 0.677145
+RESUMEN DE MEJORAS
+             Modelo  Accuracy_Improvement  F1_Improvement  Precision_Improvement  Recall_Improvement
+      Decision Tree                0.0850        0.107587               0.114298            0.093321
+Logistic Regression                0.1825        0.177573               0.194014            0.155517
+  Linear Regression               -0.0675       -0.061440              -0.043502           -0.047937
+CV RESULTS
+             Modelo   Dataset  CV_Accuracy_mean  CV_Accuracy_std  CV_F1_mean  CV_F1_std
+      Decision Tree  Original            0.8615         0.017861    0.840678   0.023260
+      Decision Tree Corregido            0.9355         0.011000    0.933575   0.011469
+Logistic Regression  Original            0.8065         0.012708    0.809987   0.010693
+Logistic Regression Corregido            0.9965         0.004899    0.996586   0.004783

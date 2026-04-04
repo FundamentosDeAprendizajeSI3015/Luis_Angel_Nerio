@@ -1,0 +1,10 @@
+Resumen de reevaluacion y correccion de etiquetas
+================================================================================
+Mejor algoritmo seleccionado: KMeans
+Columna usada como cluster_final: cluster_final
+Total de registros: 2000
+Etiquetas modificadas: 854
+Porcentaje de etiquetas modificadas: 42.70%
+[ADVERTENCIA] Porcentaje de cambio elevado (42.7%). Revisar calidad del clustering.
+Homogeneidad (Stress_Level original vs clusters): 0.2211
+Homogeneidad (Stress_Level_Corrected vs clusters): 1.0000
