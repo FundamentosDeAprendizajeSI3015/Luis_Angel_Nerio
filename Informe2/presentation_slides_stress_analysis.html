@@ -1,0 +1,351 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.pres { width: 100%; }
+.slide {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.slide-header {
+  padding: 1.25rem 1.5rem 0.75rem;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slide-num {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+  border-radius: 20px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+.slide-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.slide-body {
+  padding: 1.25rem 1.5rem;
+}
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+.one-col { display: flex; flex-direction: column; gap: 1rem; }
+.img-box {
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  background: var(--color-background-secondary);
+}
+.img-box img { width: 100%; display: block; }
+.img-caption {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  padding: 6px 10px;
+  border-top: 0.5px solid var(--color-border-tertiary);
+}
+.points { display: flex; flex-direction: column; gap: 8px; }
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+.bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-secondary);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.bullet.info { background: #378ADD; }
+.bullet.success { background: #639922; }
+.bullet.warn { background: #BA7517; }
+.bullet.danger { background: #E24B4A; }
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.tag-blue { background: #E6F1FB; color: #0C447C; }
+.tag-green { background: #EAF3DE; color: #27500A; }
+.tag-amber { background: #FAEEDA; color: #633806; }
+.tag-red { background: #FCEBEB; color: #791F1F; }
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+.metric {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px;
+  text-align: center;
+}
+.metric-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+.metric-lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.highlight-box {
+  background: var(--color-background-secondary);
+  border-left: 3px solid #378ADD;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+  line-height: 1.5;
+}
+.highlight-box.success { border-left-color: #639922; }
+.highlight-box.warn { border-left-color: #BA7517; }
+.divider { height: 0.5px; background: var(--color-border-tertiary); margin: 1rem 0; }
+</style>
+
+<div class="pres">
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 1 / 10</span>
+      <span class="slide-title">Portada — Análisis de estrés estudiantil</span>
+    </div>
+    <div class="slide-body one-col">
+      <div class="section-label">Contenido del slide</div>
+      <div class="points">
+        <div class="point"><div class="bullet info"></div><span>Título: <em>Análisis de Estrés Estudiantil mediante Clustering y Modelos Supervisados</em></span></div>
+        <div class="point"><div class="bullet"></div><span>Dataset: Student Lifestyle Dataset — Kaggle — 2000 registros, 6 features</span></div>
+        <div class="point"><div class="bullet"></div><span>Variable objetivo: Stress_Level (Low / Moderate / High)</span></div>
+        <div class="point"><div class="bullet"></div><span>Nombre del autor, materia y fecha</span></div>
+      </div>
+      <div class="highlight-box">Sin gráfica. Solo título, subtítulo e identificación.</div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 2 / 10</span>
+      <span class="slide-title">Problema y pipeline del proyecto</span>
+    </div>
+    <div class="slide-body one-col">
+      <div class="section-label">Contenido del slide</div>
+      <div class="metric-row">
+        <div class="metric"><div class="metric-val">2,000</div><div class="metric-lbl">registros</div></div>
+        <div class="metric"><div class="metric-val">6</div><div class="metric-lbl">features</div></div>
+        <div class="metric"><div class="metric-val">~30%</div><div class="metric-lbl">etiquetas incorrectas esperadas</div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="section-label">Flujo del proyecto (explicar verbalmente)</div>
+      <div class="points">
+        <div class="point"><div class="bullet info"></div><span>Dataset original → Dataset Kaggle con reglas perfectas (accuracy 100%)</span></div>
+        <div class="point"><div class="bullet info"></div><span>Preprocesamiento → StandardScaler, detección de outliers, datasets de clustering y supervisado</span></div>
+        <div class="point"><div class="bullet info"></div><span>Clustering → 4 algoritmos: KMeans, DBSCAN, Fuzzy C-Means, Subtractive (Chiu)</span></div>
+        <div class="point"><div class="bullet info"></div><span>Reetiquetado → corrección de etiquetas basada en clustering</span></div>
+        <div class="point"><div class="bullet info"></div><span>Modelos → comparación Original vs Corregido con 3 modelos supervisados</span></div>
+      </div>
+      <div class="highlight-box warn">Mencionar: el dataset original tenía reglas determinísticas (Study_Hours &lt; 6 → siempre Low). Se aplicó ruido controlado para hacerlo más realista.</div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 3 / 10</span>
+      <span class="slide-title">Clustering — espacio de datos sin etiquetar</span>
+    </div>
+    <div class="slide-body two-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/pca_sin_clusters.png" alt="PCA sin clusters" />
+        <div class="img-caption">pca_sin_clusters.png — distribución original de los 2000 estudiantes en espacio PCA 2D</div>
+      </div>
+      <div class="one-col">
+        <div class="section-label">Qué decir</div>
+        <div class="points">
+          <div class="point"><div class="bullet info"></div><span>Los datos no forman grupos perfectamente separados — hay solapamiento significativo entre clases</span></div>
+          <div class="point"><div class="bullet info"></div><span>Se aprecia una ligera tendencia diagonal (PCA1 correlaciona con Study_Hours y GPA)</span></div>
+          <div class="point"><div class="bullet warn"></div><span>Este solapamiento explica por qué el clustering tiene dificultad para separar Low del resto — el problema es estructural del dataset</span></div>
+          <div class="point"><div class="bullet"></div><span>Se reduce de 6 dimensiones a 2 usando PCA para visualización</span></div>
+        </div>
+        <div class="highlight-box">Este slide justifica la dificultad del problema antes de mostrar los resultados.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 4 / 10</span>
+      <span class="slide-title">Clustering — comparación de los 4 algoritmos</span>
+    </div>
+    <div class="slide-body one-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/pca_algoritmos_grid.png" alt="PCA algoritmos grid" />
+        <div class="img-caption">pca_algoritmos_grid.png — KMeans y Fuzzy logran 3 grupos, DBSCAN genera 2 clusters, Subtractive produce 8 clusters</div>
+      </div>
+      <div class="points">
+        <div class="point"><div class="bullet success"></div><span>KMeans: 3 clusters bien distribuidos y visualmente separados — el más interpretable</span></div>
+        <div class="point"><div class="bullet success"></div><span>Fuzzy C-Means: resultado similar a KMeans con bordes más suaves (pertenencia parcial)</span></div>
+        <div class="point"><div class="bullet success"></div><span>DBSCAN: genera 2 clusters con 43 puntos de ruido — con eps=0.7 y min_samples=5 mejora significativamente (Silhouette=0.28)</span></div>
+        <div class="point"><div class="bullet info"></div><span>Subtractive (Chiu): genera 8 clusters — con ra=2.2 y rb=3.3 logra balance entre fragmentación y compacidad</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 5 / 10</span>
+      <span class="slide-title">Clustering — métricas y selección del mejor modelo</span>
+    </div>
+    <div class="slide-body two-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/silhouette_comparison.png" alt="Silhouette comparison" />
+        <div class="img-caption">silhouette_comparison.png — KMeans 0.20, Fuzzy 0.19, DBSCAN 0.28, Subtractive 0.17</div>
+      </div>
+      <div class="one-col">
+        <div class="section-label">Qué decir</div>
+        <div class="points">
+          <div class="point"><div class="bullet success"></div><span>KMeans obtiene el Silhouette Score más alto (~0.20) — clusters más compactos y separados</span></div>
+          <div class="point"><div class="bullet success"></div><span>Fuzzy C-Means empata con KMeans en Silhouette (~0.19) pero KMeans fue seleccionado por mejor balance general</span></div>
+          <div class="point"><div class="bullet success"></div><span>DBSCAN obtiene Silhouette 0.28 (mejor que Subtractive) con eps=0.7 — genera 2 clusters interpretables</span></div>
+          <div class="point"><div class="bullet"></div><span>Silhouette de 0.20 es bajo en general — refleja el solapamiento natural del dataset (no es error del algoritmo)</span></div>
+        </div>
+        <div class="highlight-box success">KMeans seleccionado como mejor modelo → sus etiquetas se usan en el reetiquetado.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 6 / 10</span>
+      <span class="slide-title">Clustering — perfil de los 3 clusters (KMeans)</span>
+    </div>
+    <div class="slide-body two-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/centroids_heatmap_kmeans.png" alt="Centroids heatmap KMeans" />
+        <div class="img-caption">centroids_heatmap_kmeans.png — valores medios escalados por cluster</div>
+      </div>
+      <div class="one-col">
+        <div class="section-label">Interpretación de los 3 clusters</div>
+        <div class="points">
+          <div class="point"><div class="bullet danger"></div><span>Cluster 0 — alto estrés: Study_Hours alto (+0.96), GPA alto (+0.84), Physical_Activity bajo (-0.58). Perfil: estudiante muy dedicado pero con poco ejercicio.</span></div>
+          <div class="point"><div class="bullet warn"></div><span>Cluster 1 — estrés moderado: Social_Hours alto (+0.72), Study_Hours bajo (-0.69), GPA bajo (-0.66). Perfil: estudiante más social y menos académico.</span></div>
+          <div class="point"><div class="bullet success"></div><span>Cluster 2 — bajo estrés: Physical_Activity muy alto (+1.19), todos los demás negativos. Perfil: estudiante activo físicamente con menor carga académica.</span></div>
+        </div>
+        <div class="highlight-box">Esta slide es la más interpretable del proyecto — conecta el clustering con comportamientos reales de los estudiantes.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 7 / 10</span>
+      <span class="slide-title">Reetiquetado — impacto en las etiquetas</span>
+    </div>
+    <div class="slide-body two-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/pca_before_after.png" alt="PCA before after" />
+        <div class="img-caption">pca_before_after.png — etiquetas originales (izq) vs corregidas (der)</div>
+      </div>
+      <div class="one-col">
+        <div class="section-label">Qué decir</div>
+        <div class="points">
+          <div class="point"><div class="bullet info"></div><span>El reetiquetado redistribuyó las 3 clases en el espacio PCA — Low (naranja) aparece ahora en una región más específica del espacio</span></div>
+          <div class="point"><div class="bullet warn"></div><span>Low no formaba cluster natural → se aplicó asignación forzada greedy para garantizar las 3 clases en el resultado</span></div>
+          <div class="point"><div class="bullet danger"></div><span>High (morado) se redujo considerablemente — muchos registros que estaban mal etiquetados como High pasaron a Low o Moderate</span></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">Matriz de cambios</div>
+        <div class="img-box">
+          <img src="/mnt/user-data/uploads/confusion_matrix_relabeling.png" alt="Confusion matrix relabeling" />
+          <div class="img-caption">De 940 High originales, 690 se mantuvieron, 241 pasaron a Low y 98 a Moderate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 8 / 10</span>
+      <span class="slide-title">Modelos — variable más importante y estructura del árbol</span>
+    </div>
+    <div class="slide-body two-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/feature_importance_tree.png" alt="Feature importance" />
+        <div class="img-caption">feature_importance_tree.png — Study_Hours domina con ~0.70 de importancia</div>
+      </div>
+      <div class="one-col">
+        <div class="section-label">Qué decir sobre feature importance</div>
+        <div class="points">
+          <div class="point"><div class="bullet danger"></div><span>Study_Hours_Per_Day es el predictor dominante (~70%) — las horas de estudio determinan el nivel de estrés más que cualquier otra variable</span></div>
+          <div class="point"><div class="bullet warn"></div><span>Sleep_Hours_Per_Day es el segundo predictor (~17%) — dormir menos se asocia a mayor estrés</span></div>
+          <div class="point"><div class="bullet"></div><span>GPA, Physical_Activity, Extracurricular y Social_Hours tienen importancia marginal (&lt;5% cada una)</span></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">Sobre el árbol (siguiente slide o apéndice)</div>
+        <div class="points">
+          <div class="point"><div class="bullet info"></div><span>El nodo raíz divide por Study_Hours ≤ -0.946 (valor escalado) — confirma que es la feature más discriminante</span></div>
+          <div class="point"><div class="bullet info"></div><span>Las ramas principales usan Study_Hours y Sleep_Hours en los primeros 3 niveles</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 9 / 10</span>
+      <span class="slide-title">Modelos — comparación de rendimiento Original vs Corregido</span>
+    </div>
+    <div class="slide-body one-col">
+      <div class="img-box">
+        <img src="/mnt/user-data/uploads/final_comparison.png" alt="Final comparison" />
+        <div class="img-caption">final_comparison.png — Accuracy, F1-score y mejora por modelo</div>
+      </div>
+      <div class="points">
+        <div class="point"><div class="bullet success"></div><span>Decision Tree: mejora de ~8–11% en Accuracy y F1 con etiquetas corregidas</span></div>
+        <div class="point"><div class="bullet success"></div><span>Logistic Regression: accuracy casi 100% con etiquetas corregidas — las etiquetas corregidas quedan más linealmente separables</span></div>
+        <div class="point"><div class="bullet danger"></div><span>Linear Regression: leve caída con etiquetas corregidas — esperado, ya que la regresión lineal no es el modelo adecuado para clasificación multiclase</span></div>
+        <div class="point"><div class="bullet warn"></div><span>El accuracy ~100% en Logistic Regression Corregido merece explicación: las etiquetas corregidas por clustering quedan perfectamente alineadas con las fronteras lineales del espacio escalado</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide">
+    <div class="slide-header">
+      <span class="slide-num">slide 10 / 10</span>
+      <span class="slide-title">Conclusiones</span>
+    </div>
+    <div class="slide-body one-col">
+      <div class="section-label">Conclusiones principales</div>
+      <div class="points">
+        <div class="point"><div class="bullet success"></div><span>El reetiquetado basado en KMeans mejoró el rendimiento de Decision Tree y Logistic Regression en todas las métricas</span></div>
+        <div class="point"><div class="bullet info"></div><span>Study_Hours_Per_Day es el predictor más importante del nivel de estrés — estudiantes que estudian más horas tienen mayor estrés</span></div>
+        <div class="point"><div class="bullet info"></div><span>Los 3 clusters de KMeans tienen interpretación real: alto-estrés (mucho estudio), moderado (más social) y bajo-estrés (más actividad física)</span></div>
+        <div class="point"><div class="bullet warn"></div><span>Limitación: Low no forma cluster natural en el espacio de features — las clases se solapan significativamente, lo que refleja la naturaleza sintética del dataset</span></div>
+        <div class="point"><div class="bullet warn"></div><span>El accuracy ~100% de Logistic Regression corregido sugiere que las etiquetas corregidas son más consistentes con la geometría del espacio, pero deben interpretarse con cautela</span></div>
+        <div class="point"><div class="bullet danger"></div><span>DBSCAN y Subtractive no son adecuados para este dataset — el solapamiento de clases y la alta dimensionalidad dificultan su funcionamiento correcto</span></div>
+      </div>
+      <div class="divider"></div>
+      <div class="highlight-box success">Mejor modelo general: Logistic Regression con etiquetas corregidas. Modelo más interpretable: Decision Tree con feature importance.</div>
+    </div>
+  </div>
+
+</div>

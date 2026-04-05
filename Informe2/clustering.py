@@ -52,16 +52,16 @@ KMEANS_K = 3
 RANDOM_STATE = 42
 KMEANS_N_INIT = 10
 
-DBSCAN_EPS = 0.5
-DBSCAN_MIN_SAMPLES = 10
+DBSCAN_EPS = 0.7
+DBSCAN_MIN_SAMPLES = 5
 
 FUZZY_C = 3
 FUZZY_M = 2.0
 FUZZY_ERROR = 0.005
 FUZZY_MAXITER = 1000
 
-SUBTRACTIVE_RA = 1.5
-SUBTRACTIVE_RB = 2.25
+SUBTRACTIVE_RA = 2.2
+SUBTRACTIVE_RB = 3.3
 
 sns.set_theme(style="whitegrid")
 
@@ -475,7 +475,7 @@ def ejecutar_subtractive_chiu(
         p_nuevo = float(potencial[idx_nuevo])
         ratio = p_nuevo / p_max_inicial if p_max_inicial > 0 else 0.0
 
-        if ratio < 0.15:
+        if ratio < 0.22:
             break
 
         candidato = X[idx_nuevo]

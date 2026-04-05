@@ -1,0 +1,36 @@
+ANALISIS EXPLORATORIO DE DATOS - CONCLUSIONES
+
+Dataset: 2000 registros, 8 features
+
+
+VARIABLES:
+  - Student_ID: int64 (2000 unicos)
+  - Study_Hours_Per_Day: float64 (1777 unicos)
+  - Extracurricular_Hours_Per_Day: float64 (41 unicos)
+  - Sleep_Hours_Per_Day: float64 (1887 unicos)
+  - Social_Hours_Per_Day: float64 (61 unicos)
+  - Physical_Activity_Hours_Per_Day: float64 (1985 unicos)
+  - GPA: float64 (2000 unicos)
+  - Stress_Level: object (3 unicos)
+
+VALORES FALTANTES:
+  - No hay valores faltantes
+
+ESTADISTICAS NUMERICAS:
+  - Student_ID: min=1.00, max=2000.00, media=1000.50
+  - Study_Hours_Per_Day: min=5.00, max=10.00, media=7.50
+  - Extracurricular_Hours_Per_Day: min=0.00, max=4.00, media=1.99
+  - Sleep_Hours_Per_Day: min=5.00, max=10.00, media=7.50
+  - Social_Hours_Per_Day: min=0.00, max=6.00, media=2.70
+  - Physical_Activity_Hours_Per_Day: min=0.00, max=13.00, media=4.33
+  - GPA: min=2.17, max=3.98, media=3.12
+
+OUTLIERS (IQR):
+  - Total outliers detectados: 8
+
+CORRELACIONES DESTACADAS:
+  - Study_Hours_Per_Day vs GPA: 0.693
+  - GPA vs Study_Hours_Per_Day: 0.693
+  - Sleep_Hours_Per_Day vs Extracurricular_Hours_Per_Day: 0.011
+  - Extracurricular_Hours_Per_Day vs Sleep_Hours_Per_Day: 0.011
+  - Sleep_Hours_Per_Day vs Student_ID: 0.003
