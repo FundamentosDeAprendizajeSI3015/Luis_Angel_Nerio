@@ -388,6 +388,25 @@ def graficar_distribucion_clusters_multiples(labels_map: dict, output_name: str)
     plt.close()
 
 
+def graficar_umap_sin_clusters(umap_df: pd.DataFrame, output_name: str = "umap_sin_clusters.png") -> None:
+    """Genera grafica UMAP 2D sin clusters - todos los puntos en azul."""
+    plt.figure(figsize=(10, 8))
+    plt.scatter(
+        umap_df["UMAP1"],
+        umap_df["UMAP2"],
+        s=30,
+        alpha=0.6,
+        color="steelblue"
+    )
+    plt.title("UMAP sin clusters")
+    plt.xlabel("UMAP1")
+    plt.ylabel("UMAP2")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(PLOTS_DIR / output_name, dpi=300, bbox_inches="tight")
+    plt.close()
+
+
 # -----------------------------------------------------------------------------
 # Algoritmos
 # -----------------------------------------------------------------------------
@@ -813,6 +832,9 @@ def pipeline_clustering() -> None:
     # UMAP una sola vez en 3D
     umap3d_df = generar_umap(df)
     umap2d_df = umap3d_df[["UMAP1", "UMAP2"]].copy()
+
+    # UMAP sin clusters
+    graficar_umap_sin_clusters(umap2d_df, output_name="umap_sin_clusters.png")
 
     graficar_scatter_grid_2d(
         umap2d_df,
