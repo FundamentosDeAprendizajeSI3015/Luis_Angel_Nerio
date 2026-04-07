@@ -295,18 +295,5 @@ joblib>=1.1.0
 
 ---
 
-## Proximos Pasos Sugeridos
 
-- [ ] Ajuste de hiperparámetros mediante GridSearchCV
-- [ ] Implementación de ensemble methods
-- [ ] Validación con holdout test set separado
-- [ ] Análisis de importancia de features con SHAP
-- [ ] Despliegue de modelo como API REST
-- [ ] Análisis temporal (si hay datos históricos)
-
----
-
-## Soporte
-
-Para preguntas sobre la implementación, revisar los comentarios y docstrings en cada archivo Python.
 
