@@ -139,11 +139,4 @@ Resultados del modelado:
 6. Analiza los resultados en carpetas model_outputs
 7. Itera: Ajusta parámetros y repite según necesario
 
-## Extensiones Posibles
-
-- Agregar más algoritmos de machine learning
-- Implementar ensemble methods (Random Forest, Gradient Boosting)
-- Agregar técnicas de selección de features
-- Implementar hyperparameter tuning automático
-- Generar reportes automáticos en HTML
-- Agregar validación cruzada anidada
+ 
